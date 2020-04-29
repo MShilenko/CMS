@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
 class Controller
 {
-    public static function index()
+    public function index()
     {
         return 'home';
     }

@@ -1,9 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Classes;
+
+use \App\Traits\MethodReflectionInfo;
 
 class Router
 {
+    use MethodReflectionInfo;
+
     protected $routers;
 
     /**
@@ -54,7 +58,11 @@ class Router
      */
     protected function renderMethod(string $view)
     {
-        $path = explode('@', $view);
-        return $path();
+        $result = [];
+        $path   = explode('@', $view);
+
+        $result = $this->isStaticMethod($path[0], $path[1]) ? $path : [new $path[0], $path[1]];
+
+        return $result();
     }
 }

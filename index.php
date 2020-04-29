@@ -5,7 +5,7 @@ ini_set('display_errors',true);
 
 require_once 'bootstrap.php';
 
-$router = new \App\Router();
+$router = new \App\Classes\Router();
 
 // $router->get('/',     function() {
 //     return 'home';
@@ -14,10 +14,10 @@ $router = new \App\Router();
 //     return 'about';
 // });
 
-$router->get('/',      \App\Controller::class . '@index');
-$router->get('/about', \App\Controller::class . '@about');
+$router->get('/',      \App\Classes\Controller::class . '@index');
+$router->get('/about', \App\Classes\Controller::class . '@about');
 
-$application = new \App\Application($router);
+$application = new \App\Classes\Application($router);
 
 
 $application->run();
