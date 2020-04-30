@@ -6,11 +6,11 @@ class Controller
 {
     public function index()
     {
-        return 'home';
+        return new View('index', ['title' => 'Index Page']);
     }
 
-    public static function about()
+    public function about()
     {
-        return 'about';
+        return new View('company.about', ['title' => 'About company']);
     }
 }

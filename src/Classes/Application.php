@@ -2,6 +2,8 @@
 
 namespace App\Classes;
 
+use \App\Interfaces\Renderable;
+
 class Application
 {
     protected $router;
@@ -17,6 +19,12 @@ class Application
      */
     public function run()
     {
-        $this->router->dispatch();
+        $dispatch = $this->router->dispatch();
+
+        if (is_subclass_of($dispatch, Renderable::class)) {
+            return $dispatch->render();
+        }
+
+        echo $dispatch;
     }
 }

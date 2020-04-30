@@ -29,7 +29,7 @@ class Router
     {
         foreach ($this->routers as $route => $view) {
             if ($route === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                $this->render($view);
+                return $this->render($view);
             }
         }
     }
@@ -40,7 +40,7 @@ class Router
      */
     protected function render($view)
     {
-        echo is_callable($view) ? $this->renderCallback($view) : $this->renderMethod($view);
+        return is_callable($view) ? $this->renderCallback($view) : $this->renderMethod($view);
     }
 
     /**
