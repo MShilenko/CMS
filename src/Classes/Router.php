@@ -3,6 +3,7 @@
 namespace App\Classes;
 
 use \App\Traits\MethodReflectionInfo;
+use \App\Exceptions\NotFoundException;
 
 class Router
 {
@@ -32,6 +33,8 @@ class Router
                 return $this->render($view);
             }
         }
+
+        throw new NotFoundException('Страница не найдена', 404);
     }
 
     /**
@@ -63,6 +66,6 @@ class Router
 
         $result = $this->isStaticMethod($path[0], $path[1]) ? $path : [new $path[0], $path[1]];
 
-        return $result();
+        return call_user_func($result);
     }
 }

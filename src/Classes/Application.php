@@ -15,16 +15,35 @@ class Application
 
     /**
      * Print the result of routing
-     * @return $view
+     * @return view
      */
     public function run()
     {
-        $dispatch = $this->router->dispatch();
+        try {
+            $dispatch = $this->router->dispatch();
 
-        if (is_subclass_of($dispatch, Renderable::class)) {
-            return $dispatch->render();
+            if ($dispatch instanceof Renderable) {
+                return $dispatch->render();
+            }
+
+            echo $dispatch;
+        } catch (\Exception $e) {
+            $this->renderException($e);
+        }
+    }
+
+    /**
+     * handle the exception and print
+     * @param  \Exception $e
+     * @return view
+     */
+    public function renderException(\Exception $e)
+    {
+        if ($e instanceof Renderable) {
+            return $e->render();
         }
 
-        echo $dispatch;
+        http_response_code($e->getCode() ?? INTERNAL_SERVER_ERROR);
+        return 'Ошибка: ' . $e->getMessage();
     }
 }
