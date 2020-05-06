@@ -28,7 +28,7 @@ class Application
 
             echo $dispatch;
         } catch (\Exception $e) {
-            $this->renderException($e);
+            return $this->renderException($e);
         }
     }
 
