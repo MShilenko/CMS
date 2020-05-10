@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Classes;
+namespace App\CoreClasses;
 
 final class Config
 {
@@ -19,7 +19,13 @@ final class Config
      */
     public function get($config, $default = null)
     {
-        return array_get($this->configs, $config);
+        $result = '';
+
+        if($result = array_get($this->configs, $config)) {
+            return $result;
+        }
+
+        throw new \Exception('Элемент ' . $config . ' не найден в конфигурационных файлах.');
     }
 
     /**

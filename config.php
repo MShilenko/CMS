@@ -11,6 +11,7 @@ define('DB_NAME', 'cms');
 // Dir
 define('APP_DIR', __DIR__);
 define('CONFIG_DIR', APP_DIR . '/configs');
+define('TEMPLATES_DIR', APP_DIR . '/layout');
 define('VIEW_DIR', APP_DIR . '/view');
 
 //View

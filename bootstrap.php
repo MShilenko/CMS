@@ -7,4 +7,4 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/helpers.php';
 
 // App
-require_once $_SERVER['DOCUMENT_ROOT'] . '/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';

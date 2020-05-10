@@ -1,3 +1,3 @@
-<?php include VIEW_DIR . '/templates/header.php'; ?>
+<?php includeView('base.header'); ?>
 <p><?= $this->getMessage(); ?></p>
-<?php include VIEW_DIR . '/templates/footer.php'; ?>
+<?php includeView('base.footer'); ?>

@@ -1,2 +1,2 @@
-<?php include VIEW_DIR . '/templates/header.php'; ?>
-<?php include VIEW_DIR . '/templates/footer.php'; ?>
+<?php includeView('base.header', $this->data); ?>
+<?php includeView('base.footer'); ?>

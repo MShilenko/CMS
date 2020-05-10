@@ -22,3 +22,14 @@ function array_get(array $array, string $key, $default = null)
 
     return !is_array($result) ? $result : $default;
 }
+
+/**
+ * Connect the template and press data into it
+ * @param  string $templateName
+ * @param  array  $data
+ */
+function includeView(string $templateName, array $data = []) 
+{
+    include TEMPLATES_DIR . '/' . str_replace(VIEW_SEPARATOR, '/', $templateName) . '.php';
+    return $data;
+}
