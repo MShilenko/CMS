@@ -60,8 +60,17 @@ class Access
      */
     private function checkUserRights()
     {
-        if (!in_array($this->userId, $this->behaviors[$this->method])) {
-            throw new AccessException('Доступ в данный раздел запрещен!', 503);
+        if (!$this->userId || $this->checkRoles()) {
+            throw new AccessException(MSG_FORBIDDEN, 403);
         }
+    }
+
+    /**
+     * Check for the role
+     * @return boolean
+     */
+    private function checkRoles(): bool
+    {
+        return !(bool) array_intersect(\App\Models\User::findOrFail($this->userId)->roles->pluck('id')->toArray(), $this->behaviors[$this->method]);
     }
 }

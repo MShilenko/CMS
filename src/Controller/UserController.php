@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use \App\Core\Controller;
 use \App\Core\View;
-use \App\Models\User;
 use \App\Forms\AuthorizationForm;
 use \App\Forms\RegistrationForm;
+use \App\Models\User;
 
 class UserController extends Controller
 {
@@ -18,8 +18,7 @@ class UserController extends Controller
 
         if ($form->verify()) {
             try {
-                $newUser = $user->add($request);
-                // new Authorization($newUser);
+                $user->add($request);
             } catch (\Exception $e) {
                 $error = $e->getMessage();
             }

@@ -41,7 +41,7 @@ class Router
             }
         }
 
-        throw new NotFoundException('Страница не найдена', 404);
+        throw new NotFoundException(MSG_NOT_FOUND, 404);
     }
 
     /**

@@ -5,7 +5,6 @@ namespace App\Models;
 class User extends \Illuminate\Database\Eloquent\Model
 {
     use \App\Traits\StringPreparation;
-    use \App\Traits\SessionAndCookie;
 
     public const REG_VALIDATE = [
         'name' => 'required',
@@ -29,13 +28,14 @@ class User extends \Illuminate\Database\Eloquent\Model
      * Add new user
      * @param array $request
      */
-    public function add(array $request): void
+    public function add(array $request)
     {
         if ($this->userExists($request['email'])) {
             throw new \Exception(MSG_FIELD_NOT_UNIQUE_EMAIL);
         }
 
         $this->create($this->prepare($request))->roles()->attach(self::ROLE_USER);
+        $this->auth($request);
     }
 
     /**
@@ -52,7 +52,9 @@ class User extends \Illuminate\Database\Eloquent\Model
             throw new \Exception(MSG_FIELD_NOT_MATCH_PASSWORD);
         }
 
-        $this->setUserSessionData($request);
+        $this->setSessionData($request);
+        header('Location: /');
+        exit;
 
         return true;
     }
@@ -93,5 +95,26 @@ class User extends \Illuminate\Database\Eloquent\Model
     public function userExists(string $email): bool
     {
         return $this->where('email', '=', $email)->exists();
+    }
+
+    /**
+     * Add session variables and cookies for the user
+     * @param array $request
+     */
+    protected function setSessionData(array $request)
+    {
+        $_SESSION['userId'] = $this->where('email', '=', $request['email'])->pluck('id')->first();
+        setcookie("login", $request['email'], time() + 60 * 60 * 24 * 30, '/');
+    }
+
+    /**
+     * Logout user
+     * @return void
+     */
+    public static function logout()
+    {
+        unset($_SESSION['userId']);
+        header('Location: /');
+        exit;
     }
 }

@@ -12,4 +12,5 @@ define('MSG_FIELD_NOT_UNIQUE_EMAIL', 'Пользователь с таким e-m
 define('MSG_FIELD_PASSWORD_NOT_CONFIRM', 'Пароль и подтверждение должны совпадать');
 
 // Headers
-define('MSG_NOT_FOUND', 'Страница не найдена');
+define('MSG_NOT_FOUND', 'Страница не найдена.');
+define('MSG_FORBIDDEN', 'Доступ в данный раздел запрещен!');

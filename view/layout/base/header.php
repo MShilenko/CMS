@@ -36,15 +36,18 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Главная</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">О нас</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="post.html">Sample Post</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
+          <?php if (isset($_SESSION['userId'])): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="/personal-area">Личный кабинет</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Выйти</a>
+            </li>
+          <?php else: ?>  
+            <li class="nav-item">
+              <a class="nav-link" href="/authorization">Авторизоваться</a>
+            </li>
+          <?php endif; ?>  
         </ul>
       </div>
     </div>

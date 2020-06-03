@@ -10,6 +10,7 @@ $router = new \App\Core\Router();
 
 $router->get('/', \App\Controller\PageController::class . '@index');
 $router->get('/about', \App\Controller\PageController::class . '@about');
+$router->get('/logout', \App\Controller\PageController::class . '@logout');
 
 $router->get('/articles/*', \App\Controller\ArticleController::class . '@article');
 
