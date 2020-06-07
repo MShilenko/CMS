@@ -9,7 +9,7 @@
  */
 function array_get(array $array, string $key, $default = null)
 {
-    $result    = $array;
+    $result = $array;
     $arrayKeys = explode('.', $key);
 
     foreach ($arrayKeys as $arrayKey) {
@@ -30,6 +30,10 @@ function array_get(array $array, string $key, $default = null)
  */
 function includeView(string $templateName, array $data = [])
 {
+    if (hasUserSession()) {
+        $data['user'] = \App\Models\User::findOrFail($_SESSION['userId']);
+    }
+
     extract($data, EXTR_PREFIX_SAME, 'alt');
     include TEMPLATES_DIR . '/' . str_replace(VIEW_SEPARATOR, '/', $templateName) . '.php';
 }
@@ -57,4 +61,13 @@ function getConstant(string $constant, string $name): string
     }
 
     return constant($constant);
+}
+
+/**
+ * Check for user session variable
+ * @return boolean
+ */
+function hasUserSession(): bool
+{
+    return isset($_SESSION['userId']);
 }

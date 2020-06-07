@@ -2,6 +2,8 @@
 
 namespace App\Middleware\Validation;
 
+use \Exception;
+
 class EmailValidationMiddleware extends ValidationMiddleware
 {
     /**
@@ -12,7 +14,7 @@ class EmailValidationMiddleware extends ValidationMiddleware
     public function check(string $field, array $request)
     {
         if (!stripos($field, '@')) {
-            throw new \Exception(MSG_FIELD_INCORRECT_EMAIL);
+            throw new Exception(MSG_FIELD_INCORRECT_EMAIL);
         }
 
         return parent::check($field, $request);

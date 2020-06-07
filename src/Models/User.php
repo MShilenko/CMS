@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use \Exception;
+
 class User extends \Illuminate\Database\Eloquent\Model
 {
     use \App\Traits\StringPreparation;
@@ -15,6 +17,8 @@ class User extends \Illuminate\Database\Eloquent\Model
         'email' => 'required|email',
         'password' => 'required',
     ];
+    public const ROLE_ADMIN = 1;
+    public const ROLE_REDACTOR = 2;
     public const ROLE_USER = 3;
 
     protected $fillable = ['name', 'email', 'password'];
@@ -31,7 +35,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     public function add(array $request)
     {
         if ($this->userExists($request['email'])) {
-            throw new \Exception(MSG_FIELD_NOT_UNIQUE_EMAIL);
+            throw new Exception(MSG_FIELD_NOT_UNIQUE_EMAIL);
         }
 
         $this->create($this->prepare($request))->roles()->attach(self::ROLE_USER);
@@ -45,11 +49,11 @@ class User extends \Illuminate\Database\Eloquent\Model
     public function auth(array $request)
     {
         if (!$this->userExists($request['email'])) {
-            throw new \Exception(MSG_FIELD_USER_NOT_FOUND);
+            throw new Exception(MSG_FIELD_USER_NOT_FOUND);
         }
 
         if (!$this->passworVerified($request)) {
-            throw new \Exception(MSG_FIELD_NOT_MATCH_PASSWORD);
+            throw new Exception(MSG_FIELD_NOT_MATCH_PASSWORD);
         }
 
         $this->setSessionData($request);
@@ -105,6 +109,33 @@ class User extends \Illuminate\Database\Eloquent\Model
     {
         $_SESSION['userId'] = $this->where('email', '=', $request['email'])->pluck('id')->first();
         setcookie("login", $request['email'], time() + 60 * 60 * 24 * 30, '/');
+    }
+
+    /**
+     * Check if the user is subscribed
+     * @return boolean
+     */
+    public function subscribed(): bool
+    {
+        return (new Subscribe())->emailExists($this->email);
+    }
+
+    /**
+     * Check if there are administrator rights
+     * @return boolean
+     */
+    public function isAdmin(): bool
+    {
+        return (bool) $this->roles()->find(self::ROLE_ADMIN);
+    }
+
+    /**
+     * Check if there are redactor rights
+     * @return boolean
+     */
+    public function isRedactor(): bool
+    {
+        return (bool) $this->roles()->find(self::ROLE_REDACTOR);
     }
 
     /**

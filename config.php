@@ -4,7 +4,7 @@
 
 //DB
 define('DB_HOST', 'localhost');
-define('DB_LOGIN', 'root');
+define('DB_LOGIN', 'felix');
 define('DB_PASSWORD', '211187');
 define('DB_NAME', 'cms');
 

@@ -2,6 +2,8 @@
 
 namespace App\Middleware\Validation;
 
+use \Exception;
+
 class PasswordValidationMiddleware extends ValidationMiddleware
 {
     /**
@@ -12,11 +14,11 @@ class PasswordValidationMiddleware extends ValidationMiddleware
     public function check(string $field, array $request)
     {
         if ($field !== $request['passwordConfirm']) {
-            throw new \Exception(MSG_FIELD_PASSWORD_NOT_CONFIRM);
+            throw new Exception(MSG_FIELD_PASSWORD_NOT_CONFIRM);
         }
 
         if ($this->hasForbiddenSymbols($field)) {
-            throw new \Exception(MSG_FIELD_HAS_FORBIDDEN_SYMBOLS);
+            throw new Exception(MSG_FIELD_HAS_FORBIDDEN_SYMBOLS);
         }
 
         return parent::check($field, $request);

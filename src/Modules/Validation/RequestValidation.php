@@ -4,6 +4,7 @@ namespace App\Modules\Validation;
 
 use \App\Interfaces\Validated;
 use \App\Middleware\Validation\ValidationMiddleware;
+use \Exception;
 
 class RequestValidation implements Validated
 {
@@ -37,7 +38,7 @@ class RequestValidation implements Validated
             try {
                 $this->prepareMiddlewares($rules);
                 $this->middleware->check($this->request[$field], $this->request);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->errors[$field] = $e->getMessage();
             }
         }

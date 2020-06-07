@@ -4,6 +4,7 @@ namespace App\Core;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use \App\Interfaces\Renderable;
+use \Exception;
 
 class Application
 {
@@ -34,7 +35,7 @@ class Application
                 'collation' => 'utf8_general_ci',
                 'prefix'    => '',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
 
@@ -57,7 +58,7 @@ class Application
             }
 
             echo $dispatch;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->renderException($e);
         }
     }
@@ -67,7 +68,7 @@ class Application
      * @param  \Exception $e
      * @return view
      */
-    public function renderException(\Exception $e)
+    public function renderException(Exception $e)
     {
         if ($e instanceof Renderable) {
             return $e->render();

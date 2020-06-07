@@ -36,7 +36,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Главная</a>
           </li>
-          <?php if (isset($_SESSION['userId'])): ?>
+          <?php if (isset($user)): ?>
+            <?php if ($user->isAdmin() || $user->isRedactor()): ?>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin">Админка</a>
+              </li>
+            <?php endif; ?>  
             <li class="nav-item">
               <a class="nav-link" href="/personal-area">Личный кабинет</a>
             </li>

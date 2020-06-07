@@ -4,17 +4,22 @@ namespace App\Forms;
 
 use \App\Interfaces\Renderable;
 use \App\Modules\SimpleFormBuilder\FormElement;
+use \App\Modules\SimpleFormBuilder\FieldComposite;
+use \App\Modules\SimpleFormBuilder\AlertDiv;
 use \App\Modules\Validation\RequestValidation;
 
 abstract class BaseForm implements Renderable
 {
+    protected $action;
+    protected $error;
     protected $data          = [];
     protected $errors        = [];
     protected $validateRules = [];
 
-    public function __construct(array $data = [], array $validateRules = [])
+    public function __construct(array $data = [], array $validateRules = [], string $action = '')
     {
         $this->data          = $data;
+        $this->action        = !empty($action) ? $action : $_SERVER['REQUEST_URI'];
         $this->validateRules = $validateRules;
     }
 
@@ -58,5 +63,34 @@ abstract class BaseForm implements Renderable
             isset($this->data[$field->getName()]) ? $field->setData($this->data[$field->getName()]) : '';
             isset($this->errors[$field->getName()]) ? $field->setError($this->errors[$field->getName()]) : '';
         }
+    }
+
+    /**
+     * Check for errors exists
+     * @return boolean
+     */
+    public function hasErrors(): bool
+    {
+        return !empty($this->errors);
+    }
+
+    /**
+     * Assign a personal error block
+     * @param string $error
+     */
+    public function setError(string $error)
+    {
+        $this->error = $error;
+    }
+
+    /**
+     * Add a general message block
+     * @param string $success
+     * @return  FieldComposite
+     */
+    protected function setAlertBlock(string $success): FieldComposite
+    {
+        $alertClass = isset($this->error) ? 'alert-danger' : 'alert-success';
+        return new AlertDiv('alert', $this->error ?? $success, ['class' => 'col-lg-12 alert mt-2 ' . $alertClass]);
     }
 }

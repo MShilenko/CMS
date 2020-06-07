@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use \App\Controller as Controllers;
+use \App\Controller\AdminController;
 
 abstract class Controller
 {
@@ -17,7 +17,7 @@ abstract class Controller
     public static function behaviors()
     {
         return [
-            \App\Controller\AdminController::class => [
+            AdminController::class => [
                 'index' => [self::ADMIN, self::REDACTOR],
                 'allArticles' => [self::ADMIN, self::REDACTOR],
                 'article' => [self::ADMIN],

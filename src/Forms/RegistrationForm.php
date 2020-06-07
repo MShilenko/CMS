@@ -12,6 +12,12 @@ class RegistrationForm extends BaseForm
 {
     public function assembly(): FormElement
     {
+        $formBlock = new Div('registrationBlock', 'row', ['class' => 'registration-block row']);
+
+        if (isset($_POST['addSubscribe'])) {
+            $formBlock->add($this->setAlertBlock(REGISTRATION_SUCCESS));           
+        }
+
         $form = new Form('registration', "userRegistration", "POST", "/registration", ['id' => 'addUser', 'class' => 'user']);
 
         // Name
@@ -45,6 +51,7 @@ class RegistrationForm extends BaseForm
         $col2->add($passwordConfirm);
         $row->add($col2);
         $form->add($row);
+        $formBlock->add($form);
 
         // Submit
         $row = new Div('Отправить', 'For email filed', ['class' => 'form-group']);
@@ -53,6 +60,6 @@ class RegistrationForm extends BaseForm
 
         $this->prepareFields([$name, $email, $password, $passwordConfirm]);
 
-        return $form;
+        return $formBlock;
     }
 }

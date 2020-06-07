@@ -12,7 +12,13 @@ class AuthorizationForm extends BaseForm
 {
     public function assembly(): FormElement
     {
-        $form = new Form('authorization', "userAuthorization", "POST", "/authorization", ['id' => 'authUser', 'class' => 'user']);
+        $formBlock = new Div('authorizationblock', 'row', ['class' => 'authorization-block row']);
+
+        if (isset($_POST['authUser'])) {
+            $formBlock->add($this->setAlertBlock(AUTHORIZATION_SUCCESS));           
+        }
+
+        $form = new Form('authorization', "userAuthorization", "POST", $this->action, ['id' => 'authUser', 'class' => 'user col-lg-12']);
 
         // E-mail
         $email = new Input('email', 'email', 'E-mail', [
@@ -20,6 +26,7 @@ class AuthorizationForm extends BaseForm
             'required'         => 'required',
             'placeholder'      => PLACEHOLDER_EMAIL,
         ]);
+
         $row = new Div('E-mail', 'For email filed', ['class' => 'form-group']);
         $row->add($email);
         $form->add($row);
@@ -39,8 +46,14 @@ class AuthorizationForm extends BaseForm
         $row->add(new Submit('Отправить', 'authUser', ['class' => 'btn btn-primary btn-user btn-block']));
         $form->add($row);
 
+        if (isset($_COOKIE['login'])) {
+            $email->setData($_COOKIE['login']);   
+        }
+
         $this->prepareFields([$email, $password]);
 
-        return $form;
+        $formBlock->add($form);
+
+        return $formBlock;
     }
 }

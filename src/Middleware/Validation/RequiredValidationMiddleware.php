@@ -2,6 +2,8 @@
 
 namespace App\Middleware\Validation;
 
+use \Exception;
+
 class RequiredValidationMiddleware extends ValidationMiddleware
 {
     /**
@@ -12,7 +14,7 @@ class RequiredValidationMiddleware extends ValidationMiddleware
     public function check(string $field, array $request)
     {
         if (empty($field)) {
-            throw new \Exception(MSG_FIELD_EMPTY);
+            throw new Exception(MSG_FIELD_EMPTY);
         }
 
         return parent::check($field, $request);

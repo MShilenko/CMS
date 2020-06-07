@@ -27,5 +27,9 @@ includeView('base.header', [
   <div class="clearfix">
     <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
   </div>
+  <?php if (!isset($user) || !$user->subscribed()): ?>
+    <h2 class="text-center">Подписка</h2>
+    <?= $form->render() ?>
+  <?php endif; ?>  
 </div>
 <?php includeView('base.footer');?>

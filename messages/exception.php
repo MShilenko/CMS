@@ -9,6 +9,7 @@ define('MSG_FIELD_NOT_MATCH', 'Не совпадает');
 define('MSG_FIELD_NOT_MATCH_PASSWORD', 'Пароль введен неверно.');
 define('MSG_FIELD_USER_NOT_FOUND', 'Пользователь с таким email не зарегистрирован');
 define('MSG_FIELD_NOT_UNIQUE_EMAIL', 'Пользователь с таким e-mail уже существует');
+define('MSG_FIELD_SUBSCRIBE_HAS_EMAIL', 'На данный почтовый ящик уже приходят уведомления.');
 define('MSG_FIELD_PASSWORD_NOT_CONFIRM', 'Пароль и подтверждение должны совпадать');
 
 // Headers

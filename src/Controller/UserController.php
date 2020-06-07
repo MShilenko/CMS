@@ -7,6 +7,7 @@ use \App\Core\View;
 use \App\Forms\AuthorizationForm;
 use \App\Forms\RegistrationForm;
 use \App\Models\User;
+use \Exception;
 
 class UserController extends Controller
 {
@@ -19,8 +20,8 @@ class UserController extends Controller
         if ($form->verify()) {
             try {
                 $user->add($request);
-            } catch (\Exception $e) {
-                $error = $e->getMessage();
+            } catch (Exception $e) {
+                $form->setError($e->getMessage());
             }
         }
 
@@ -36,8 +37,8 @@ class UserController extends Controller
         if ($form->verify()) {
             try {
                 $user->auth($request);
-            } catch (\Exception $e) {
-                $error = $e->getMessage();
+            } catch (Exception $e) {
+                $form->setError($e->getMessage());
             }
         }
 
