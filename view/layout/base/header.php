@@ -19,6 +19,8 @@
   <!-- Custom styles for this template -->
   <link href="<?= FRONT_THEME_DIR ?>/css/clean-blog.min.css" rel="stylesheet">
 
+  <link href="<?= THEMES_DIR ?>/custom/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -59,7 +61,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('<?= FRONT_THEME_DIR ?>/img/<?= $image ?? 'home-bg.jpg' ?>')">
+  <header class="masthead" style="background-image: url('<?= UPLOADS_DIR ?>/<?= $image ?>')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">

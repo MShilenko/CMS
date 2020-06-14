@@ -5,8 +5,10 @@ namespace App\Controller;
 use \App\Core\Controller;
 use \App\Core\View;
 use \App\Forms\SubscribeForm;
+use \App\Models\User;
 use \App\Models\Article;
 use \App\Models\Subscribe;
+use \App\Core\ResponseAdapter;
 use \Exception;
 
 class PageController extends Controller
@@ -23,23 +25,29 @@ class PageController extends Controller
 
     public function logout()
     {
-        \App\Models\User::logout();
+        User::logout();
     }
 
     public function addSubscribe(array $request)
     {
-        $error = '';
+        $success = '';
+        $messages = [];
         $subscribe = new Subscribe();
         $form = new SubscribeForm($request, $subscribe::VALIDATE);
 
         if ($form->verify()) {
             try {
-                $subscribe->add($request);
+                $success = $messages['success'] = $subscribe->add($request);
             } catch (Exception $e) {
+                $messages['modelError'] = $e->getMessage();
                 $form->setError($e->getMessage());
             }
         }
 
-        return new View('index', ['articles' => Article::front(), 'form' => $form]);
+        if ($form->hasErrors()) {
+            $messages['errors'] = $form->getErrors();
+        }
+
+        return (new ResponseAdapter($messages))->json();
     }
 }

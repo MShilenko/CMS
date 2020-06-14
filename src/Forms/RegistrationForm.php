@@ -14,11 +14,11 @@ class RegistrationForm extends BaseForm
     {
         $formBlock = new Div('registrationBlock', 'row', ['class' => 'registration-block row']);
 
-        if (isset($_POST['addSubscribe'])) {
+        if (isset($_POST['addUser']) && !$this->hasErrors()) {
             $formBlock->add($this->setAlertBlock(REGISTRATION_SUCCESS));           
         }
 
-        $form = new Form('registration', "userRegistration", "POST", "/registration", ['id' => 'addUser', 'class' => 'user']);
+        $form = new Form('registration', "userRegistration", "POST", "/registration", ['id' => 'addUser', 'class' => 'user col-lg-12']);
 
         // Name
         $name = new Input('name', 'text', 'Ваше имя', [
@@ -52,6 +52,12 @@ class RegistrationForm extends BaseForm
         $row->add($col2);
         $form->add($row);
         $formBlock->add($form);
+
+        // Checkbox
+        $row = new Div('Согласие', 'For checkbox filed', ['class' => 'form-check']);
+        $checkbox = new Input('rules', 'checkbox', 'согласен с <a href="/pages/rules">правилами сайта</a>', ['class' => 'form-control form-check-input', 'required' => 'required', 'checked' => 'checked']);
+        $row->add($checkbox);
+        $form->add($row);
 
         // Submit
         $row = new Div('Отправить', 'For email filed', ['class' => 'form-group']);

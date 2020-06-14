@@ -14,7 +14,7 @@ class AuthorizationForm extends BaseForm
     {
         $formBlock = new Div('authorizationblock', 'row', ['class' => 'authorization-block row']);
 
-        if (isset($_POST['authUser'])) {
+        if (isset($_POST['authUser']) && !$this->hasErrors()) {
             $formBlock->add($this->setAlertBlock(AUTHORIZATION_SUCCESS));           
         }
 

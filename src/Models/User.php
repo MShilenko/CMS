@@ -31,6 +31,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     /**
      * Add new user
      * @param array $request
+     * @return string
      */
     public function add(array $request)
     {
@@ -40,11 +41,14 @@ class User extends \Illuminate\Database\Eloquent\Model
 
         $this->create($this->prepare($request))->roles()->attach(self::ROLE_USER);
         $this->auth($request);
+
+        return REGISTRATION_SUCCESS;
     }
 
     /**
      * Verify data for authorization and authorization user
      * @param array $request
+     * @return string
      */
     public function auth(array $request)
     {
@@ -57,10 +61,8 @@ class User extends \Illuminate\Database\Eloquent\Model
         }
 
         $this->setSessionData($request);
-        header('Location: /');
-        exit;
 
-        return true;
+        return AUTHORIZATION_SUCCESS;
     }
 
     /**

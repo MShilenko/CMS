@@ -18,7 +18,7 @@ includeView('base.header', [
         </h3>
       </a>
       <p class="post-meta">Опубликовано
-        <a href="#"><?= shortLine($article->user->name) ?></a>
+        <?= $article->user->name ?>
         <?= $article->updated_at ?? $article->created_at ?></p>
     </div>
     <hr>
@@ -27,7 +27,10 @@ includeView('base.header', [
   <div class="clearfix">
     <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
   </div>
-  <?php if (!isset($user) || !$user->subscribed()): ?>
+  <?php if (isset($user) && !empty($success)): ?>
+    <div class="col-lg-12 alert mt-2 alert-success"><?= $success ?></div>
+  <?php endif; ?>  
+  <?php if (!isset($user) || !$user ->subscribed()): ?>
     <h2 class="text-center">Подписка</h2>
     <?= $form->render() ?>
   <?php endif; ?>  

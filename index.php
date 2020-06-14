@@ -11,6 +11,7 @@ use \App\Controller\ArticleController;
 use \App\Controller\AdminController;
 use \App\Controller\AuthController;
 use \App\Controller\UserController;
+use \App\Controller\CommentController;
 
 require_once 'bootstrap.php';
 
@@ -22,6 +23,7 @@ $router->get('/about', PageController::class . '@about');
 $router->get('/logout', PageController::class . '@logout');
 
 $router->get('/articles/*', ArticleController::class . '@article');
+$router->post('/articles/*', CommentController::class . '@add');
 
 $router->get('/admin', AdminController::class . '@index');
 $router->get('/admin/articles', AdminController::class . '@allArticles');

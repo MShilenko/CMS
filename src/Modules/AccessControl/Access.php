@@ -3,6 +3,7 @@
 namespace App\Modules\AccessControl;
 
 use \App\Exceptions\AccessException;
+use \App\Models\User;
 
 class Access
 {
@@ -13,10 +14,10 @@ class Access
 
     public function __construct(string $route)
     {
-        $path            = explode('@', $route);
-        $this->class     = $path[0];
-        $this->method    = $path[1];
-        $this->userId    = $_SESSION['userId'] ?? 0;
+        $path = explode('@', $route);
+        $this->class = $path[0];
+        $this->method = $path[1];
+        $this->userId = $_SESSION['userId'] ?? 0;
         $this->behaviors = $this->getBehaviors();
     }
 
@@ -26,7 +27,7 @@ class Access
      */
     public function check()
     {
-        if ($this->behaviors && $this->methodHasBehavior()) {
+        if ($this->behaviors && $this->functionHasBehavior()) {
             $this->checkUserRights();
         }
 
@@ -49,7 +50,7 @@ class Access
      * Check if method has behavior
      * @return boolean
      */
-    private function methodHasBehavior(): bool
+    private function functionHasBehavior(): bool
     {
         return array_key_exists($this->method, $this->behaviors);
     }
@@ -71,6 +72,6 @@ class Access
      */
     private function checkRoles(): bool
     {
-        return !(bool) array_intersect(\App\Models\User::findOrFail($this->userId)->roles->pluck('id')->toArray(), $this->behaviors[$this->method]);
+        return !(bool) array_intersect(User::findOrFail($this->userId)->roles->pluck('id')->toArray(), $this->behaviors[$this->method]);
     }
 }

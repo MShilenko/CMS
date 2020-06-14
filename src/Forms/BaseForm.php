@@ -3,23 +3,23 @@
 namespace App\Forms;
 
 use \App\Interfaces\Renderable;
-use \App\Modules\SimpleFormBuilder\FormElement;
-use \App\Modules\SimpleFormBuilder\FieldComposite;
 use \App\Modules\SimpleFormBuilder\AlertDiv;
+use \App\Modules\SimpleFormBuilder\FieldComposite;
+use \App\Modules\SimpleFormBuilder\FormElement;
 use \App\Modules\Validation\RequestValidation;
 
 abstract class BaseForm implements Renderable
 {
+    public $errors = [];
     protected $action;
     protected $error;
-    protected $data          = [];
-    protected $errors        = [];
+    protected $data = [];
     protected $validateRules = [];
 
     public function __construct(array $data = [], array $validateRules = [], string $action = '')
     {
-        $this->data          = $data;
-        $this->action        = !empty($action) ? $action : $_SERVER['REQUEST_URI'];
+        $this->data = $data;
+        $this->action = !empty($action) ? $action : $_SERVER['REQUEST_URI'];
         $this->validateRules = $validateRules;
     }
 
@@ -63,6 +63,15 @@ abstract class BaseForm implements Renderable
             isset($this->data[$field->getName()]) ? $field->setData($this->data[$field->getName()]) : '';
             isset($this->errors[$field->getName()]) ? $field->setError($this->errors[$field->getName()]) : '';
         }
+    }
+
+    /**
+     * Get errors array
+     * @return boolean
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 
     /**

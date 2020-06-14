@@ -18,8 +18,9 @@ class Subscribe extends \Illuminate\Database\Eloquent\Model
     /**
      * Add new subscriber
      * @param array $request
+     * @return string
      */
-    public function add(array $request)
+    public function add(array $request): string
     {
         $request['email'] = $this->clean($request['email']);
 
@@ -28,6 +29,8 @@ class Subscribe extends \Illuminate\Database\Eloquent\Model
         }
 
         $this->create($request);
+
+        return SUBSCRIBE_SUCCESS;
     }
 
     /**

@@ -18,6 +18,8 @@
   <!-- Custom styles for this template-->
   <link href="<?= BACK_THEME_DIR ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
+  <link href="<?= THEMES_DIR ?>/custom/style.css" rel="stylesheet">
+
 </head>
 
 <body class="bg-gradient-primary">
