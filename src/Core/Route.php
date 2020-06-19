@@ -97,6 +97,7 @@ class Route
 
         if ($this->method == 'POST') {
             $params[] = $_POST;
+            $params[] = $_FILES ?? '';
         }
 
         return call_user_func_array($this->prepareCallback($this->callback), array_slice($params, 1));

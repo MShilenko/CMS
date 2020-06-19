@@ -4,7 +4,11 @@ define('REGISTRATION_SUCCESS', 'Регистрация прошла успешн
 define('SUBSCRIBE_SUCCESS', 'Подписка прошла успешно.');
 define('AUTHORIZATION_SUCCESS', 'Авторизация прошла успешно.');
 define('COMMENT_SUCCESS', 'Комментарий добавлен успешно.');
+define('PROFILE_EDIT_SUCCESS', 'Профиль успешно изменен.');
+define('SAVE', 'Сохранено');
+define('NOT_SAVE', 'Не удалось сохранить');
 define('PLACEHOLDER_NAME', 'Введите Ваше имя');
 define('PLACEHOLDER_PASSWORD', 'Введите пароль');
 define('PLACEHOLDER_EMAIL', 'Введите адрес электронной почты');
 define('PLACEHOLDER_COMMENT', 'Добавьте комментарий');
+define('PLACEHOLDER_ABOUT', 'Расскажите о себе');

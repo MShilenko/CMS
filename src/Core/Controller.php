@@ -21,6 +21,7 @@ abstract class Controller
                 'index' => [self::ADMIN, self::REDACTOR],
                 'allArticles' => [self::ADMIN, self::REDACTOR],
                 'article' => [self::ADMIN],
+                'users' => [self::ADMIN],
             ],
         ];
     }

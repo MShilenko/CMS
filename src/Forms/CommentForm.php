@@ -21,7 +21,7 @@ class CommentForm extends BaseForm
 
         $form = new Form('comment', "comment", "POST", $this->action, ['id' => 'addComment', 'class' => 'user col-lg-12']);
 
-        // E-mail
+        // Textarea
         $comment = new Textarea('comment', 'comment', 'Комментарий', [
             'class' => 'form-control form-control-user',
             'required' => 'required',

@@ -24,14 +24,14 @@
 
   <!-- Heading -->
   <div class="sidebar-heading">
-    Interface
+    Настройки
   </div>
 
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
       <i class="fas fa-fw fa-cog"></i>
-      <span>Components</span>
+      <span>Общие</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
@@ -64,7 +64,7 @@
 
   <!-- Heading -->
   <div class="sidebar-heading">
-    Addons
+    Разделы
   </div>
 
   <!-- Nav Item - Pages Collapse Menu -->
@@ -95,6 +95,11 @@
   </li>
 
   <!-- Nav Item - Tables -->
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/users">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Пользователи</span></a>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="/admin/articles">
       <i class="fas fa-fw fa-book"></i>

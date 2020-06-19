@@ -17,11 +17,22 @@ class User extends \Illuminate\Database\Eloquent\Model
         'email' => 'required|email',
         'password' => 'required',
     ];
+    public const EDIT_VALIDATE = [
+        'name' => 'required',
+        'email' => 'required|email',
+        'password' => 'password',
+        'avatar' => 'image',
+    ];
     public const ROLE_ADMIN = 1;
     public const ROLE_REDACTOR = 2;
     public const ROLE_USER = 3;
 
     protected $fillable = ['name', 'email', 'password'];
+
+    public function avatar()
+    {
+        return $this->belongsTo('App\Models\Upload', 'upload_id');
+    }
 
     public function roles()
     {
@@ -140,6 +151,15 @@ class User extends \Illuminate\Database\Eloquent\Model
         return (bool) $this->roles()->find(self::ROLE_REDACTOR);
     }
 
+     /**
+     * Check if there are user rights
+     * @return boolean
+     */
+    public function isUser(): bool
+    {
+        return (bool) $this->roles()->find(self::ROLE_USER);
+    }
+
     /**
      * Logout user
      * @return void
@@ -149,5 +169,70 @@ class User extends \Illuminate\Database\Eloquent\Model
         unset($_SESSION['userId']);
         header('Location: /');
         exit;
+    }
+
+    public function edit(array $request) 
+    {   
+        $this->toggleSubscribe($request);
+        $this->addAvatar($request);
+
+        $this->name = $this->clean($request['name']);
+        $this->email = $this->clean($request['email']);
+
+        if (!empty($request['password'])) {
+            $this->password = $this->password($request['password']);
+        }
+
+        if (!empty($request['about'])) {
+            $this->about = $this->clean($request['about']);
+        }
+
+        $this->save();
+
+        return PROFILE_EDIT_SUCCESS;
+    }
+
+    /**
+     * Add or remove a subscription
+     * @param  array  $request
+     * @return void
+     */
+    public function toggleSubscribe(array $request): void
+    {
+        $subscribe = new Subscribe();
+
+        if (isset($request['subscribe']) && !$this->subscribed()) {
+            $subscribe->add($request);
+        } 
+
+        if (!isset($request['subscribe']) && $this->subscribed()){
+            $subscribe->where('email', '=', $request['email'])->delete();
+        } 
+    }
+
+    /**
+     * Add an avatar
+     * @param array $request
+     * @return void
+     */
+    public function addAvatar(array $request): void 
+    {
+        if (isset($request['avatar']) && !empty($request['avatar'])) {
+            $upload = new Upload();
+            $upload->add($request);
+           
+            $this->avatar()->associate($upload);   
+        }
+    }
+
+    public function editRoles(array $request) 
+    {
+        if (isset($request['roles'])) {
+            $this->roles()->sync($request['roles']);
+
+            return SAVE;    
+        }
+
+        return NOT_SAVE;
     }
 }

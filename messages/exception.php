@@ -11,6 +11,8 @@ define('MSG_FIELD_USER_NOT_FOUND', 'Пользователь с таким email
 define('MSG_FIELD_NOT_UNIQUE_EMAIL', 'Пользователь с таким e-mail уже существует');
 define('MSG_FIELD_SUBSCRIBE_HAS_EMAIL', 'На данный почтовый ящик уже приходят уведомления.');
 define('MSG_FIELD_PASSWORD_NOT_CONFIRM', 'Пароль и подтверждение должны совпадать');
+define('INCORRECT_IMAGE_TYPE', 'Изображение может быть только .svg, .png или .jpeg формата');
+define('INCORRECT_IMAGE_SIZE', 'Размер изображения превышает 2 мегабайта');
 
 // Headers
 define('MSG_NOT_FOUND', 'Страница не найдена.');

@@ -11,10 +11,10 @@
         <?php if ($comment->active || (isset($user) && $comment->hasRightToView($user))): ?>
           <div class="media col-lg-12<?= $comment->active ? '' : ' not-active' ?>">
             <div class="media-left">
-              <img class="img-responsive user-photo" src="<?= $comment->user->avatar ?? 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png' ?>">
+              <img class="img-responsive user-photo" src="<?= UPLOADS_DIR . '/' ?><?= $comment->user->avatar->name ?? 'pr-default.png' ?>">
             </div>
             <div class="media-body">
-                <h6 class="media-heading"><?= $comment->user->name ?> | <span class="c-date"><?= $comment->updated_at ?? $comment->created_at ?><?= $comment->active ? '' : ' | Не утвержден' ?></span></h6>
+                <h6 class="media-heading"><a href="/users/<?= $comment->user->id ?>"><?= $comment->user->name ?></a> | <span class="c-date"><?= $comment->updated_at ?? $comment->created_at ?><?= $comment->active ? '' : ' | Не утвержден' ?></span></h6>
                 <p><?= $comment->comment ?></p>
             </div>
           </div>

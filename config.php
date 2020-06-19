@@ -26,3 +26,8 @@ define('VIEW_SEPARATOR', '.');
 define('NOT_FOUND', 404);
 define('FORBIDDEN', 403);
 define('INTERNAL_SERVER_ERROR', 500);
+
+//Upload images
+define("ALLOWED_IMAGE_TYPES", ['image/jpeg', 'image/png', 'image/svg']);
+define("ALLOWED_IMAGE_SIZE", 2000000);
+

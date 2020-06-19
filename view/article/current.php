@@ -6,4 +6,5 @@
   <?= $article->text ?>
   <hr>
   <?php includeView('base.comments', ['form' => $form, 'article' => $article]); ?>
+</div>  
 <?php includeView('base.footer'); ?>

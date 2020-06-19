@@ -4,12 +4,10 @@ namespace App\Controller;
 
 use \App\Core\Controller;
 use \App\Core\View;
+use \App\Exceptions\NotFoundException;
 use \App\Forms\SubscribeForm;
-use \App\Models\User;
 use \App\Models\Article;
-use \App\Models\Subscribe;
-use \App\Core\ResponseAdapter;
-use \Exception;
+use \App\Models\Page;
 
 class PageController extends Controller
 {
@@ -23,31 +21,12 @@ class PageController extends Controller
         return new View('company.about', ['title' => 'About company']);
     }
 
-    public function logout()
+    public function current(string $slug)
     {
-        User::logout();
-    }
-
-    public function addSubscribe(array $request)
-    {
-        $success = '';
-        $messages = [];
-        $subscribe = new Subscribe();
-        $form = new SubscribeForm($request, $subscribe::VALIDATE);
-
-        if ($form->verify()) {
-            try {
-                $success = $messages['success'] = $subscribe->add($request);
-            } catch (Exception $e) {
-                $messages['modelError'] = $e->getMessage();
-                $form->setError($e->getMessage());
-            }
+        if ($page = Page::where('slug', $slug)->first()) {
+            return new View('pages.current', ['page' => $page]);
         }
 
-        if ($form->hasErrors()) {
-            $messages['errors'] = $form->getErrors();
-        }
-
-        return (new ResponseAdapter($messages))->json();
+        throw new NotFoundException(MSG_NOT_FOUND, 404);
     }
 }

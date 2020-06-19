@@ -10,7 +10,7 @@ class View implements Renderable
     protected $view;
     protected $data;
 
-    public function __construct(string $view, array $data)
+    public function __construct(string $view, array $data = [])
     {
         $this->view = $view;
         $this->data = $data;

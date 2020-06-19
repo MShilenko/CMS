@@ -61,7 +61,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('<?= UPLOADS_DIR ?>/<?= $image ?>')">
+  <header class="masthead" style="background-image: url('<?= UPLOADS_DIR ?>/<?= $image ?? 'home-bg.jpg' ?>')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">

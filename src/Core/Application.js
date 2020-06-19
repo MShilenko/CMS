@@ -39,6 +39,7 @@ class Application {
   setMessages(form, result) {
   	let formSucccessTag = document.getElementById(form.id + '-success');
   	let formErrorTag = document.getElementById(form.id + '-danger');
+
   	if (result.success) {
   		formSucccessTag.classList.remove('d-none');
   		formSucccessTag.innerHTML = result.success;
@@ -49,11 +50,15 @@ class Application {
   		formErrorTag.innerHTML = result.modelError;
   	} 
 
+    this.addCloseButton(formSucccessTag);
+    this.addCloseButton(formErrorTag);
+
   	if (result.errors) {
   		for (let error in result.errors) {
   			let inputErrorTag = document.getElementById(form.id + '-' + form.elements[error].name + '-error');
   			inputErrorTag.classList.remove('d-none');
   			inputErrorTag.innerHTML = result.errors[error];
+        this.addCloseButton(inputErrorTag);
 			}
   	}
   }
@@ -117,6 +122,22 @@ class Application {
   		element.innerHTML = '';
       element.classList.add('d-none');
   	}
+  }
+
+  /**
+   * Add close button tag
+   * @param tag
+   * @return void
+   */
+  addCloseButton (tag) {
+    let alertClose = document.createElement('span');
+    alertClose.innerHTML = "x";
+    alertClose.classList.add('alertClose');
+    tag.append(alertClose);
+
+    alertClose.addEventListener('click', function() {
+      tag.classList.add('d-none');
+    });
   }
 
 }

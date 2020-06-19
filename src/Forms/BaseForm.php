@@ -7,6 +7,7 @@ use \App\Modules\SimpleFormBuilder\AlertDiv;
 use \App\Modules\SimpleFormBuilder\FieldComposite;
 use \App\Modules\SimpleFormBuilder\FormElement;
 use \App\Modules\Validation\RequestValidation;
+use \Illuminate\Database\Eloquent\Model;
 
 abstract class BaseForm implements Renderable
 {
@@ -15,6 +16,8 @@ abstract class BaseForm implements Renderable
     protected $error;
     protected $data = [];
     protected $validateRules = [];
+    protected $params = [];
+    protected $model;
 
     public function __construct(array $data = [], array $validateRules = [], string $action = '')
     {
@@ -101,5 +104,24 @@ abstract class BaseForm implements Renderable
     {
         $alertClass = isset($this->error) ? 'alert-danger' : 'alert-success';
         return new AlertDiv('alert', $this->error ?? $success, ['class' => 'col-lg-12 alert mt-2 ' . $alertClass]);
+    }
+
+    /**
+     * Set the model
+     * @param Model $model
+     * @return void
+     */
+    public function setModel(Model $model): void
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Set additional parameters
+     * @param array $params
+     */
+    public function setParams(array $params): void
+    {
+        $this->params = $params;
     }
 }
