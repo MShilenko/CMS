@@ -4,14 +4,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 session_start();
 
-use \App\Core\Router;
-use \App\Core\Application;
-use \App\Controller\PageController;
-use \App\Controller\ArticleController;
 use \App\Controller\AdminController;
+use \App\Controller\ArticleController;
 use \App\Controller\AuthController;
-use \App\Controller\UserController;
 use \App\Controller\CommentController;
+use \App\Controller\PageController;
+use \App\Controller\SubscribeController;
+use \App\Controller\UserController;
+use \App\Core\Application;
+use \App\Core\Router;
 
 require_once 'bootstrap.php';
 
@@ -31,6 +32,12 @@ $router->get('/admin', AdminController::class . '@index');
 $router->get('/admin/users', AdminController::class . '@users');
 $router->post('/admin/users', AdminController::class . '@editUser');
 $router->get('/admin/articles', AdminController::class . '@allArticles');
+$router->post('/admin/articles', AdminController::class . '@toggleArticle');
+$router->get('/admin/articles/edit/(\d+)', AdminController::class . '@article');
+$router->post('/admin/articles/edit/(\d+)', AdminController::class . '@editArticle');
+$router->get('/admin/subscribes', AdminController::class . '@subscribes');
+$router->post('/admin/subscribes', AdminController::class . '@deleteSubscribe');
+
 
 $router->get('/registration', AuthController::class . '@registration');
 $router->get('/authorization', AuthController::class . '@authorization');

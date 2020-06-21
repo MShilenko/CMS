@@ -140,4 +140,16 @@ class Application {
     });
   }
 
+  /**
+   * Add forms to the list to send requests
+   * @param  forms
+   * @param  className
+   * @return void
+   */
+  formsAddToLsitforBuilder(forms, className) {
+    for(let form of forms) {
+      form.classList.contains(className) ? this.formBuilderFetch(form) : '';
+    }
+  }
+
 }

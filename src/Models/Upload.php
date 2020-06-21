@@ -16,13 +16,14 @@ class Upload extends Model
 
     /**
      * Add file
-     * @param array $request
+     * @param string $tmpImage
+     * @param string $image
      * @return Upload
      */
-    public function add(array $request): Upload 
+    public function add(string $tmpImage, string $image): Upload 
     {
-        move_uploaded_file($request['avatar'], APP_DIR . UPLOADS_DIR . '/' . $request['imageName']);
-        $this->name = $request['imageName'];
+        move_uploaded_file($tmpImage, APP_DIR . UPLOADS_DIR . '/' . $image);
+        $this->name = $image;
 
         $this->save();
 

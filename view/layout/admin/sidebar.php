@@ -95,11 +95,18 @@
   </li>
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" href="/admin/users">
-      <i class="fas fa-fw fa-user"></i>
-      <span>Пользователи</span></a>
-  </li>
+  <?php if ($user->isAdmin()): ?>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/users">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Пользователи</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/subscribes">
+        <i class="fas fa-fw fa-envelope"></i>
+        <span>Подписки</span></a>
+    </li>
+  <?php endif; ?>
   <li class="nav-item">
     <a class="nav-link" href="/admin/articles">
       <i class="fas fa-fw fa-book"></i>

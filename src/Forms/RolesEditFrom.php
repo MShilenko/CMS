@@ -23,7 +23,7 @@ class RolesEditFrom extends BaseForm
         $form = new Form('rolesEdit', "rolesEdit", "POST", $this->action, ['id' => 'rolesEdit' . $userModel->id, 'class' => 'editRoles user col-lg-12']);
 
         // input userId
-        $userId = $admin = new input('userId', 'hidden', '', ['class' => 'd-none']);
+        $userId = new input('userId', 'hidden', '', ['class' => 'd-none']);
         $userId->setData($userModel->id);
 
         // checkbox

@@ -18,10 +18,12 @@ abstract class Controller
     {
         return [
             AdminController::class => [
+                'users' => [self::ADMIN],
+                'subscribes' => [self::ADMIN],
                 'index' => [self::ADMIN, self::REDACTOR],
                 'allArticles' => [self::ADMIN, self::REDACTOR],
-                'article' => [self::ADMIN],
-                'users' => [self::ADMIN],
+                'article' => [self::ADMIN, self::REDACTOR],
+                'editArticle' => [self::ADMIN, self::REDACTOR],
             ],
         ];
     }

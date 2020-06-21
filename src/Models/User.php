@@ -219,7 +219,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     {
         if (isset($request['avatar']) && !empty($request['avatar'])) {
             $upload = new Upload();
-            $upload->add($request);
+            $upload->add($request['avatar'], $request['imageName']);
            
             $this->avatar()->associate($upload);   
         }

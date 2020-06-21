@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use \App\Interfaces\Renderable;
+use \App\Models\Subscribe;
 use \App\Models\User;
 
 class View implements Renderable

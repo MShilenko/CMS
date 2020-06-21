@@ -47,8 +47,8 @@ class ProfileForm extends BaseForm
         // Avatar
         $row = new Div('Блок', 'For avatar filed', ['class' => 'form-group row align-items-center']);
         $col1 = new Div('Аватар', 'avatar', ['class' => 'col-sm-6 mb-3 mb-sm-0']);
-        $avatar = new Input('avatar', 'file', 'Изображение', ['class' => 'form-control-file']);
-        $avatar->setData($_POST['avatar'] ?? $this->model->avatar);
+        $avatar = new Input('avatar', 'file', 'Заменить изображение', ['class' => 'form-control-file']);
+        $avatar->setData($_POST['avatar'] ?? $this->model->avatar->name ?? '');
         $col1->add($avatar);
         $row->add($col1);
         
