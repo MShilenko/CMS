@@ -35,8 +35,21 @@ $router->get('/admin/articles', AdminController::class . '@allArticles');
 $router->post('/admin/articles', AdminController::class . '@toggleArticle');
 $router->get('/admin/articles/edit/(\d+)', AdminController::class . '@article');
 $router->post('/admin/articles/edit/(\d+)', AdminController::class . '@editArticle');
+$router->get('/admin/articles/add', AdminController::class . '@addArticle');
+$router->post('/admin/articles/add', AdminController::class . '@addArticlePost');
 $router->get('/admin/subscribes', AdminController::class . '@subscribes');
 $router->post('/admin/subscribes', AdminController::class . '@deleteSubscribe');
+$router->get('/admin/comments', AdminController::class . '@comments');
+$router->post('/admin/comments', AdminController::class . '@toggleComment');
+$router->get('/admin/comments/edit/(\d+)', AdminController::class . '@comment');
+$router->post('/admin/comments/edit/(\d+)', AdminController::class . '@editComment');
+$router->get('/admin/pages', AdminController::class . '@pages');
+$router->post('/admin/pages', AdminController::class . '@togglePage');
+$router->get('/admin/pages/edit/(\d+)', AdminController::class . '@page');
+$router->post('/admin/pages/edit/(\d+)', AdminController::class . '@editPage');
+$router->get('/admin/pages/add', AdminController::class . '@addPage');
+$router->post('/admin/pages/add', AdminController::class . '@addPagePost');
+
 
 
 $router->get('/registration', AuthController::class . '@registration');

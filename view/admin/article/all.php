@@ -1,4 +1,7 @@
 <?php includeView('admin.header', ['title' => 'Статьи']); ?>
+<div class="admin-add-button mb-3">
+  <a href="/admin/articles/add/" class="btn btn-primary mr-1"><i class="fas fa-fw fa-book"></i> Добавить новую</a>
+</div>
 <div class="card shadow mb-4 admin-articles">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Список статей сайта</h6>

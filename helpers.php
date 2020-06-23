@@ -41,11 +41,12 @@ function includeView(string $templateName, array $data = [])
 /**
  * Cut the string
  * @param  string $string
+ * @param  int $count
  * @return string
  */
-function shortLine(string $string): string
+function shortLine(string $string, int $count = 100): string
 {
-    return mb_strimwidth($string, 0, 100, "...");
+    return mb_strimwidth($string, 0, $count, "...");
 }
 
 /**

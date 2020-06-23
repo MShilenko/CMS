@@ -2,6 +2,7 @@
 
 $topBarSubscribes = ['list' => \App\Models\Subscribe::limit(5)->orderBy('id', 'desc')->get(), 'count' => \App\Models\Subscribe::count()]; 
 $topBarUsers = ['list' => \App\Models\User::limit(5)->orderBy('created_at', 'desc')->get(), 'count' => \App\Models\User::count()];
+$topBarComments = ['list' => \App\Models\Comment::limit(5)->orderBy('created_at', 'desc')->get(), 'count' => \App\Models\Comment::count()];
 ?>
 <?php if ($user->isAdmin()): ?>
 <!-- Nav Item - Messages -->
@@ -48,6 +49,28 @@ $topBarUsers = ['list' => \App\Models\User::limit(5)->orderBy('created_at', 'des
   </div>
 </li>
 <?php endif; ?>
+<li class="nav-item dropdown no-arrow mx-1">
+  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-comments fa-fw"></i>
+    <!-- Counter - Messages -->
+    <span class="badge badge-danger badge-counter"><?= $topBarComments['count'] ?></span>
+  </a>
+  <!-- Dropdown - Messages -->
+  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+    <h6 class="dropdown-header">
+      Последние комментарии
+    </h6>
+    <?php foreach ($topBarComments['list'] as $comment): ?>
+      <div class="dropdown-item d-flex align-items-center">
+        <div class="font-weight-bold">
+          <div class="text-truncate"><a href="/articles/<?= $comment->article->slug ?>"><?= $comment->article->title ?></a></div>
+          <div class="small "><?= shortLine($comment->comment, 50) ?></div>
+        </div>
+      </div>
+    <?php endforeach; ?>  
+    <a class="dropdown-item text-center small text-gray-500" href="/admin/comments">Перейти к редактированию комментариев</a>
+  </div>
+</li>
 
 <div class="topbar-divider d-none d-sm-block"></div>
 

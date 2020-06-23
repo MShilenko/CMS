@@ -112,6 +112,16 @@
       <i class="fas fa-fw fa-book"></i>
       <span>Статьи</span></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/pages">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Страницы</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/comments">
+      <i class="fas fa-fw fa-comments"></i>
+      <span>Комментарии</span></a>
+  </li>  
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

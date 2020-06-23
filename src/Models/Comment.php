@@ -22,6 +22,11 @@ class Comment extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function article()
+    {
+        return $this->belongsTo('App\Models\Article');
+    }
+
     /**
      * Add a new comment
      * @param array   $request
@@ -39,6 +44,19 @@ class Comment extends Model
         $this->save();
 
         return COMMENT_SUCCESS;
+    }
+
+     /**
+     * Edit comment
+     * @param array   $request
+     * @return string
+     */
+    public function edit(array $request)
+    {
+        $this->comment = $this->clean($request['comment']);
+        $this->save();
+
+        return COMMENT_EDIT_SUCCESS;
     }
 
     /**

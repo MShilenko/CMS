@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	let commentForm = forms.comment;
 	let editProfile = forms.editProfile;
 	let articleEdit = forms.articleEdit;
+	let commentEdit = forms.commentEdit;
+	let pageEdit = forms.pageEdit;
 
 	if (subscribeForm) app.formBuilderFetch(subscribeForm);
 	if (commentForm) app.formBuilderFetch(commentForm);
@@ -14,9 +16,13 @@ document.addEventListener("DOMContentLoaded", function(){
 	if (registrationForm) app.formBuilderFetch(registrationForm, '/personal-area');
 	if (editProfile) app.formBuilderFetch(editProfile, '/personal-area');
 	if (articleEdit) app.formBuilderFetch(articleEdit);
+	if (commentEdit) app.formBuilderFetch(commentEdit);
+	if (pageEdit) app.formBuilderFetch(pageEdit);
 	if (forms.rolesEdit) app.formsAddToLsitforBuilder(forms, 'editRoles');
 	if (forms.articleSwitchPublication) app.formsAddToLsitforBuilder(forms, 'articleSwitchPublication');
-	if (forms.subscribeSwitchPublication) app.formsAddToLsitforBuilder(forms, 'subscribeSwitchPublication');
+	if (forms.subscribeDelete) app.formsAddToLsitforBuilder(forms, 'subscribeDelete');
+	if (forms.commentsSwitchPublication) app.formsAddToLsitforBuilder(forms, 'commentsSwitchPublication');
+	if (forms.pageSwitchPublication) app.formsAddToLsitforBuilder(forms, 'pageSwitchPublication');
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -29,16 +35,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 	let articleEdits = document.querySelectorAll('.article-edit');
 	let subscribeEdits = document.querySelectorAll('.subscibe-edit');
+	let commentEdits = document.querySelectorAll('.comment-edit');
+	let pageEdits = document.querySelectorAll('.page-edit');
+
+	if (articleEdits) app.toggleBlockClass(articleEdits, 'trashed');
+	if (pageEdits) app.toggleBlockClass(pageEdits, 'trashed');
+	if (commentEdits) app.toggleBlockClass(commentEdits, 'not-active');
+	if (subscribeEdits) app.toggleBlockClass(subscribeEdits, 'd-none');
 	
-	for (articleEdit of articleEdits) {
-		articleEdit.addEventListener('submit', function() {
-			this.classList.toggle('trashed');
-		});
-	}
-	
-	for (subscribeEdit of subscribeEdits) {
-		subscribeEdit.addEventListener('submit', function() {
-			this.classList.add('d-none');
-		});
-	}
 }); 

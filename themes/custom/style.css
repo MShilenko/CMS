@@ -45,7 +45,8 @@
   border: 1px solid #ddd;
   border-width: 1px 0 0 1px;
   -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
   position: absolute;
   top: 10px;
   left: -6px;
@@ -85,22 +86,24 @@ section#profile {
   height: 100%;
   overflow: visible;
   -webkit-transition: all 1500ms cubic-bezier(1, 0, 0, 1);
-  -moz-transition: all 1500ms cubic-bezier(1, 0, 0, 1);
   -o-transition: all 1500ms cubic-bezier(1, 0, 0, 1);
   transition: all 1500ms cubic-bezier(1, 0, 0, 1);
   /* easeInOutExpo */
   -webkit-transition-timing-function: cubic-bezier(1, 0, 0, 1);
-  -moz-transition-timing-function: cubic-bezier(1, 0, 0, 1);
   -o-transition-timing-function: cubic-bezier(1, 0, 0, 1);
   transition-timing-function: cubic-bezier(1, 0, 0, 1);
 }
 
 #profile .animate-out {
-  transform: translate(-100%);
+  -webkit-transform: translate(-100%);
+      -ms-transform: translate(-100%);
+          transform: translate(-100%);
 }
 
 #profile .animate-out-again {
-  transform: translate(-200%);
+  -webkit-transform: translate(-200%);
+      -ms-transform: translate(-200%);
+          transform: translate(-200%);
 }
 
 #profile .profile-card {
@@ -109,7 +112,6 @@ section#profile {
   padding: 20px;
   background-color: white;
   -webkit-box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
-  -moz-box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
   box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
 }
 
@@ -221,17 +223,42 @@ form[name="rolesEdit"] input[type="checkbox"] {
 }
 
 .admin-articles .trashed .articl-delete-block,
+form[name="commentsSwitchPublication"] label,
+form[name="pageSwitchPublication"] label,
 form[name="articleSwitchPublication"] label[for="articleId"],
-form[name="subscribeSwitchPublication"] label[for="subscribeId"],
+form[name="subscribeDelete"] label[for="subscribeId"],
 form[name="articleSwitchPublication"] .article-restore,
+form[name="pageSwitchPublication"] .page-restore,
+.comment-edit .comments-restore,
+.comment-edit.not-active .comments-delete,
+.trashed form[name="pageSwitchPublication"] .page-delete,
 .trashed form[name="articleSwitchPublication"] .article-delete {
   display: none;
 }
 
-.trashed form[name="articleSwitchPublication"] .article-restore {
+.admin-comments .c-buttons{
+  min-height: 130px;
+}
+
+.comment-edit.not-active .comments-restore,
+.trashed form[name="articleSwitchPublication"] .article-restore,
+.trashed form[name="pageSwitchPublication"] .page-restore {
   display: block;
 }
 
-.admin-articles .trashed {
+.admin-articles .trashed,
+.admin-pages .trashed,
+.admin-comments .not-active {
   opacity: 0.6;
+}
+
+.admin-comments .comment-td {
+  word-break: break-word;
+  width: 45%;
+}
+
+.admin-add-button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
 }

@@ -22,9 +22,9 @@ class Application {
 	    let result = await response.json();
 	   	this.setMessages(form, result);
 
-	    if (result.success && redirectURI != '') {
+	    if (result.success && (redirectURI != '' || result.redirect != '')) {
 	    	setTimeout(function(){
-			  window.location.href = redirectURI;
+			  window.location.href = result.redirect ?? redirectURI;
 			}, 2000);
 	    }
 	  };
@@ -149,6 +149,20 @@ class Application {
   formsAddToLsitforBuilder(forms, className) {
     for(let form of forms) {
       form.classList.contains(className) ? this.formBuilderFetch(form) : '';
+    }
+  }
+
+  /**
+   * Change the block class when submitting the form
+   * @param  blocks
+   * @param  className
+   * @return void
+   */
+  toggleBlockClass(blocks, className) {
+    for (let block of blocks) {
+      block.addEventListener('submit', function(event) {
+        event.currentTarget.classList.toggle(className);
+      });
     }
   }
 

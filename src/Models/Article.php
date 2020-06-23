@@ -6,6 +6,7 @@ use \Exception;
 
 class Article extends \Illuminate\Database\Eloquent\Model
 {
+    use \App\Traits\ModelHelpers;
     use \App\Traits\StringPreparation;
     use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,6 +16,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
         'text' => 'required',
         'image' => 'image',
     ];
+    public const DEFAULT_IMAGE_ID = 1;
 
     protected $dates = ['deleted_at'];
 
@@ -53,13 +55,13 @@ class Article extends \Illuminate\Database\Eloquent\Model
 
     /**
      * Edit article
-     * @param  array  $request [description]
+     * @param  array  $request
      * @return string
      */
     public function edit(array $request)
     {
         $slug = $this->clean($request['slug']);
-        if ($this->slug !== $slug && $this->slugExists($slug)) {
+        if ($this->slug !== $slug && $this->fieldExists('slug', $slug)) {
             throw new Exception(SLUG_EXISTS);
         }
 
@@ -75,13 +77,26 @@ class Article extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
-     * Check if slug exists
-     * @param  string $slug
-     * @return boolean
+     * Add new article
+     * @param  array  $request
+     * @return string
      */
-    public function slugExists(string $slug): bool
+    public function add(array $request)
     {
-        return $this->where('slug', $slug)->exists();
+        $slug = $this->clean($request['slug']);
+        if ($this->fieldExists('slug', $slug)) {
+            throw new Exception(SLUG_EXISTS);
+        }
+
+        $this->addImage($request);
+        $this->title = $this->clean($request['title']);
+        $this->slug = $this->clean($request['slug']);
+        $this->text = $request['text'];
+        $this->user_id = $_SESSION['userId'];
+
+        $this->save();
+
+        return ARTICLE_ADD_SUCCESS;
     }
 
     /**
@@ -91,6 +106,10 @@ class Article extends \Illuminate\Database\Eloquent\Model
      */
     public function addImage(array $request): void
     {
+        if (empty($this->upload_id)) {
+            $this->upload_id = self::DEFAULT_IMAGE_ID;
+        }
+
         if (isset($request['image']) && !empty($request['image'])) {
             $upload = new Upload();
             $upload->add($request['image'], $request['imageName']);
