@@ -11,10 +11,12 @@ define('COMMENT_EDIT_SUCCESS', 'Комментарий успешно измен
 define('ARTICLE_SWITCH', 'Статус статьи изменен.');
 define('ADD_PAGE_SUCCESS', 'Страница добавлена.');
 define('ARTICLE_ADD_SUCCESS', 'Статья добавлена.');
+define('SETTINGS_SUCCESS', 'Настройки обновлены.');
 define('COMMENT_STATUS_SWITCH', 'Статус комментария изменен.');
 define('PAGE_STATUS_SWITCH', 'Статус страницы изменен.');
 define('SUBSCRIBE_DELETE', 'Почтовый ящик удален из списка.');
 define('SAVE', 'Сохранено');
+define('SELECT_ALL', 'Все');
 define('NOT_SAVE', 'Не удалось сохранить');
 define('PLACEHOLDER_NAME', 'Введите Ваше имя');
 define('PLACEHOLDER_PASSWORD', 'Введите пароль');
@@ -28,3 +30,4 @@ define('PLACEHOLDER_PAGE_TITLE', 'Введите название страниц
 define('PLACEHOLDER_PAGE_SLUG', 'Введите символьный код страницы');
 define('PLACEHOLDER_PAGE_TEXT', 'Введите текст страницы');
 define('PLACEHOLDER_COMMENT_TEXT', 'Введите комментарий');
+define('PLACEHOLDER_POSTS_COUNT', 'Выберите количество выводимых записей');

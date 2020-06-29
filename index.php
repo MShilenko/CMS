@@ -49,6 +49,8 @@ $router->get('/admin/pages/edit/(\d+)', AdminController::class . '@page');
 $router->post('/admin/pages/edit/(\d+)', AdminController::class . '@editPage');
 $router->get('/admin/pages/add', AdminController::class . '@addPage');
 $router->post('/admin/pages/add', AdminController::class . '@addPagePost');
+$router->get('/admin/settings', AdminController::class . '@settings');
+$router->post('/admin/settings', AdminController::class . '@editSettings');
 
 
 

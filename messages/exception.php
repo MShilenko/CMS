@@ -14,6 +14,7 @@ define('MSG_FIELD_PASSWORD_NOT_CONFIRM', 'Пароль и подтвержден
 define('INCORRECT_IMAGE_TYPE', 'Изображение может быть только .svg, .png или .jpeg формата');
 define('INCORRECT_IMAGE_SIZE', 'Размер изображения превышает 2 мегабайта');
 define('SLUG_EXISTS', 'Символьный код уже занят другой записью');
+define('MSG_FIELD_NOT_INT', 'Введенное значение не является числом');
 
 // Headers
 define('MSG_NOT_FOUND', 'Страница не найдена.');

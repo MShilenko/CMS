@@ -11,15 +11,19 @@ use \App\Forms\ArticleEditForm;
 use \App\Forms\ArticleSwitchPublicationForm;
 use \App\Forms\CommentEditForm;
 use \App\Forms\CommentSwitchPublicationForm;
+use \App\Forms\FilterForm;
 use \App\Forms\PageEditForm;
 use \App\Forms\PageSwitchPublicationForm;
 use \App\Forms\RolesEditFrom;
+use \App\Forms\SettingsForm;
 use \App\Forms\SubscribeDeleteForm;
 use \App\Models\Article;
 use \App\Models\Comment;
 use \App\Models\Page;
+use \App\Models\Setting;
 use \App\Models\Subscribe;
 use \App\Models\User;
+use \App\Modules\ModelPagination;
 use \App\Modules\ModelRequestHelper;
 
 class AdminController extends Controller
@@ -34,16 +38,44 @@ class AdminController extends Controller
 
     public function allArticles()
     {
+        $articles = Article::withTrashed()->orderBy('created_at', 'desc');
+        $pagination = new ModelPagination($articles);
+        if (isset($_GET['on_page'])) {
+            $paginationLimit = $pagination->getAdminLimit();            
+        }
+        
+        $modelWithPagination = $pagination->simplePaginate($paginationLimit ?? ModelPagination::DEFAULT_ADMIN);
         $form = new ArticleSwitchPublicationForm();
+        $filterForm = new FilterForm();
 
-        return new View('admin.article.all', ['articles' => Article::withTrashed()->get(), 'form' => $form]);
+        return new View('admin.article.all', ['articles' => $modelWithPagination, 'pagination' => $pagination->paginationCount(), 'form' => $form, 'filterForm' => $filterForm]);
+    }
+
+    public function settings()
+    {
+        $settings = Setting::find(Setting::GENERAL_SETTINGS);
+        $form = new SettingsForm();
+        $form->setModel($settings);
+
+        return new View('admin.settings.index', ['form' => $form, 'form' => $form]);
+    }
+
+    public function editSettings(array $request)
+    {
+        $settings = Setting::find(Setting::GENERAL_SETTINGS);
+        $form = new SettingsForm();
+        $form = new SettingsForm($request, $settings::VALIDATE);
+
+        $messages = (new ModelRequestHelper($request, $form, $settings, 'edit'))->run();
+
+        return (new ResponseAdapter($messages))->json();
     }
 
     public function pages()
     {
         $form = new PageSwitchPublicationForm();
 
-        return new View('admin.page.all', ['pages' => Page::withTrashed()->get(), 'form' => $form]);
+        return new View('admin.page.all', ['pages' => Page::withTrashed()->orderBy('created_at', 'desc')->get(), 'form' => $form]);
     }
 
     public function subscribes()
@@ -55,9 +87,17 @@ class AdminController extends Controller
 
     public function comments()
     {
+        $comments = Comment::orderBy('created_at', 'desc');
+        $pagination = new ModelPagination($comments);
+        if (isset($_GET['on_page'])) {
+            $paginationLimit = $pagination->getAdminLimit();            
+        }
+        
+        $modelWithPagination = $pagination->simplePaginate($paginationLimit ?? ModelPagination::DEFAULT_ADMIN);
         $form = new CommentSwitchPublicationForm();
+        $filterForm = new FilterForm();
 
-        return new View('admin.comments.index', ['comments' => Comment::all(), 'form' => $form]);
+        return new View('admin.comments.index', ['comments' => $modelWithPagination, 'pagination' => $pagination->paginationCount(), 'form' => $form, 'filterForm' => $filterForm]);
     }
 
     public function article(int $id)
@@ -107,7 +147,7 @@ class AdminController extends Controller
         $messages = (new ModelRequestHelper($request, $form, $page, 'add'))->run();
 
         if (isset($page->id)) {
-            $messages['redirect'] = '/admin/pages/edit/' . $page->id;    
+            $messages['redirect'] = '/admin/pages/edit/' . $page->id;
         }
 
         return (new ResponseAdapter($messages))->json();
@@ -151,14 +191,14 @@ class AdminController extends Controller
         $messages = [];
         $article = new Article();
         $request['imageName'] = $files['image']['name'];
-        $request['image'] = $files['image']['tmp_name'];    
+        $request['image'] = $files['image']['tmp_name'];
         $form = new ArticleEditForm($request, $article::EDIT_VALIDATE);
         $form->setModel($article);
 
         $messages = (new ModelRequestHelper($request, $form, $article, 'add'))->run();
 
         if (isset($article->id)) {
-            $messages['redirect'] = '/admin/articles/edit/' . $article->id;    
+            $messages['redirect'] = '/admin/articles/edit/' . $article->id;
         }
 
         return (new ResponseAdapter($messages))->json();

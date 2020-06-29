@@ -1,7 +1,12 @@
 <?php includeView('admin.header', ['title' => 'Комментарии']); ?>
 <div class="card shadow mb-4 admin-comments">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Список комментариев</h6>
+  <div class="card-header py-3 d-flex">
+    <div class="col-lg-6">
+      <h6 class="m-0 font-weight-bold text-primary">Список комментариев</h6>
+    </div>
+    <div class="col-lg-6 admin-form-block">
+      <?= $filterForm->render() ?>
+    </div>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -35,6 +40,12 @@
         <?php endforeach; ?>
         </tbody>
       </table>
+    </div>
+    <!-- Pager -->
+    <div class="clearfix">
+      <?php if ($pagination): ?>
+        <?php includeView('base.pagination', ['pagination' => $pagination]);?>
+      <?php endif; ?>
     </div>
   </div>
 </div>

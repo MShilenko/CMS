@@ -19,17 +19,16 @@ includeView('base.header', [
       </a>
       <p class="post-meta">Опубликовано
         <?= $article->user->name ?>
-        <?= $article->updated_at ?? $article->created_at ?></p>
+        <?= $article->created_at ?></p>
     </div>
     <hr>
   <?php endforeach; ?>  
   <!-- Pager -->
   <div class="clearfix">
-    <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+    <?php if ($pagination): ?>
+      <?php includeView('base.pagination', ['pagination' => $pagination]);?>
+    <?php endif; ?>
   </div>
-  <?php if (isset($user) && !empty($success)): ?>
-    <div class="col-lg-12 alert mt-2 alert-success"><?= $success ?></div>
-  <?php endif; ?>  
   <?php if (!isset($user) || !$user ->subscribed()): ?>
     <h2 class="text-center">Подписка</h2>
     <?= $form->render() ?>

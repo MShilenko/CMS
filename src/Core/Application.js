@@ -22,7 +22,7 @@ class Application {
 	    let result = await response.json();
 	   	this.setMessages(form, result);
 
-	    if (result.success && (redirectURI != '' || result.redirect != '')) {
+	    if (result.success && (redirectURI != '' || result.redirect != undefined)) {
 	    	setTimeout(function(){
 			  window.location.href = result.redirect ?? redirectURI;
 			}, 2000);

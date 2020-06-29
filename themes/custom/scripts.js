@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
+	const defaultPagerAdminLimit = 20;
+
 	let app = new Application();
 	let forms = document.forms;
 	let subscribeForm = forms.subscribe;
@@ -9,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	let articleEdit = forms.articleEdit;
 	let commentEdit = forms.commentEdit;
 	let pageEdit = forms.pageEdit;
+	let addSettings = forms.addSettings;
+	let addFilter = forms.addFilter;
 
 	if (subscribeForm) app.formBuilderFetch(subscribeForm);
 	if (commentForm) app.formBuilderFetch(commentForm);
@@ -18,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	if (articleEdit) app.formBuilderFetch(articleEdit);
 	if (commentEdit) app.formBuilderFetch(commentEdit);
 	if (pageEdit) app.formBuilderFetch(pageEdit);
+	if (addSettings) app.formBuilderFetch(addSettings);
 	if (forms.rolesEdit) app.formsAddToLsitforBuilder(forms, 'editRoles');
 	if (forms.articleSwitchPublication) app.formsAddToLsitforBuilder(forms, 'articleSwitchPublication');
 	if (forms.subscribeDelete) app.formsAddToLsitforBuilder(forms, 'subscribeDelete');
@@ -42,5 +47,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	if (pageEdits) app.toggleBlockClass(pageEdits, 'trashed');
 	if (commentEdits) app.toggleBlockClass(commentEdits, 'not-active');
 	if (subscribeEdits) app.toggleBlockClass(subscribeEdits, 'd-none');
-	
+
+	if (addFilter && window.location.search.includes('on_page') == false) {
+		addFilter.on_page.value = defaultPagerAdminLimit;
+	}	
 }); 

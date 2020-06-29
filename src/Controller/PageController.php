@@ -8,12 +8,17 @@ use \App\Exceptions\NotFoundException;
 use \App\Forms\SubscribeForm;
 use \App\Models\Article;
 use \App\Models\Page;
+use \App\Modules\ModelPagination;
 
 class PageController extends Controller
 {
     public function index()
     {
-        return new View('index', ['articles' => Article::front(), 'form' => new SubscribeForm()]);
+        $articles = Article::orderBy('created_at', 'desc');
+        $pagination = new ModelPagination($articles);
+        $modelWithPagination = $pagination->simplePaginate();
+
+        return new View('index', ['articles' => $modelWithPagination, 'pagination' => $pagination->paginationCount(), 'form' => new SubscribeForm()]);
     }
 
     public function about()

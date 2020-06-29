@@ -72,3 +72,30 @@ function hasUserSession(): bool
 {
     return isset($_SESSION['userId']);
 }
+
+/**
+ * Check if the page is the active pagination page
+ * @param  int    $page
+ * @return boolean
+ */
+function paginationCurrentPage(int $page): bool 
+{
+    return $_GET['page'] == $page; 
+}
+
+/**
+ * Prepare the query string
+ * @param  string $queryName
+ * @param  int    $queryValue
+ * @return string $result
+ */
+function prepareQueryString(string $queryName, int $queryValue): string
+{
+    $startQuery = [$queryName => $queryValue];
+
+    if (isset($_GET)) {
+        $startQuery = array_merge($_GET, $startQuery);
+    }
+
+    return http_build_query($startQuery); 
+}
