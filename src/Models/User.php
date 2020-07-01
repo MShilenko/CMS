@@ -7,6 +7,7 @@ use \Exception;
 class User extends \Illuminate\Database\Eloquent\Model
 {
     use \App\Traits\StringPreparation;
+    use \Illuminate\Database\Eloquent\SoftDeletes;
 
     public const REG_VALIDATE = [
         'name' => 'required',
@@ -27,6 +28,7 @@ class User extends \Illuminate\Database\Eloquent\Model
     public const ROLE_REDACTOR = 2;
     public const ROLE_USER = 3;
 
+    protected $dates = ['deleted_at'];
     protected $fillable = ['name', 'email', 'password'];
 
     public function avatar()
@@ -57,6 +59,27 @@ class User extends \Illuminate\Database\Eloquent\Model
     }
 
     /**
+     * Add new user from admin panel
+     * @param array $request
+     * @return string
+     */
+    public function adminAdd(array $request)
+    {
+        if ($this->userExists($request['email'])) {
+            throw new Exception(MSG_FIELD_NOT_UNIQUE_EMAIL);
+        }
+
+        $this->name = $this->clean($request['name']);
+        $this->email = $this->clean($request['email']);
+        $this->password = $this->password($request['email']);
+
+        $this->save();
+        $this->editRoles($request);
+
+        return ADD_USER_SUCCESS;
+    }
+
+    /**
      * Verify data for authorization and authorization user
      * @param array $request
      * @return string
@@ -65,6 +88,10 @@ class User extends \Illuminate\Database\Eloquent\Model
     {
         if (!$this->userExists($request['email'])) {
             throw new Exception(MSG_FIELD_USER_NOT_FOUND);
+        }
+
+        if ($this->isTrashed($request['email'])) {
+            throw new Exception(MSG_FIELD_USER_TRASHED);
         }
 
         if (!$this->passworVerified($request)) {
@@ -111,7 +138,7 @@ class User extends \Illuminate\Database\Eloquent\Model
      */
     public function userExists(string $email): bool
     {
-        return $this->where('email', '=', $email)->exists();
+        return $this->withTrashed()->where('email', '=', $email)->exists();
     }
 
     /**
@@ -148,7 +175,7 @@ class User extends \Illuminate\Database\Eloquent\Model
      */
     public function isRedactor(): bool
     {
-        return (bool) $this->roles()->find(self::ROLE_REDACTOR);
+        return (bool) $this->roles()->find(self::ROLE_ADMIN) || $this->roles()->find(self::ROLE_REDACTOR);
     }
 
      /**
@@ -157,7 +184,7 @@ class User extends \Illuminate\Database\Eloquent\Model
      */
     public function isUser(): bool
     {
-        return (bool) $this->roles()->find(self::ROLE_USER);
+        return (bool) $this->roles()->find(self::ROLE_ADMIN) || $this->roles()->find(self::ROLE_REDACTOR) || $this->roles()->find(self::ROLE_USER);
     }
 
     /**
@@ -225,7 +252,12 @@ class User extends \Illuminate\Database\Eloquent\Model
         }
     }
 
-    public function editRoles(array $request) 
+    /**
+     * Change user roles according to the request
+     * @param  array  $request
+     * @return string
+     */
+    public function editRoles(array $request): string 
     {
         if (isset($request['roles'])) {
             $this->roles()->sync($request['roles']);
@@ -234,5 +266,31 @@ class User extends \Illuminate\Database\Eloquent\Model
         }
 
         return NOT_SAVE;
+    }
+
+    /**
+     * Switch user activity
+     * @return string
+     */
+    public function toggle(): string
+    {
+        if ($this->trashed()) {
+            $this->restore();
+        } else {
+            $this->delete();
+        }
+
+        return USER_SWITCH;        
+    }
+
+    /**
+     * Check if the user is active
+     * @param  string     $id 
+     * @return boolean     
+     */
+    public function isTrashed(string $email): bool
+    {
+        $user = $this->withTrashed()->where('email', $email)->first();
+        return $user->deleted_at !== NULL;
     }
 }

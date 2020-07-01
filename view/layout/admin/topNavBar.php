@@ -1,7 +1,7 @@
 <?php 
 
 $topBarSubscribes = ['list' => \App\Models\Subscribe::limit(5)->orderBy('id', 'desc')->get(), 'count' => \App\Models\Subscribe::count()]; 
-$topBarUsers = ['list' => \App\Models\User::limit(5)->orderBy('created_at', 'desc')->get(), 'count' => \App\Models\User::count()];
+$topBarUsers = ['list' => \App\Models\User::limit(5)->orderBy('created_at', 'desc')->get(), 'count' => \App\Models\User::withTrashed()->count()];
 $topBarComments = ['list' => \App\Models\Comment::limit(5)->orderBy('created_at', 'desc')->get(), 'count' => \App\Models\Comment::count()];
 ?>
 <?php if ($user->isAdmin()): ?>

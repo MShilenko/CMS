@@ -156,12 +156,15 @@ class Application {
    * Change the block class when submitting the form
    * @param  blocks
    * @param  className
+   * @param  excludeFormClass
    * @return void
    */
-  toggleBlockClass(blocks, className) {
+  toggleBlockClass(blocks, toggleClass, excludeFormClass = '') {
     for (let block of blocks) {
       block.addEventListener('submit', function(event) {
-        event.currentTarget.classList.toggle(className);
+        if (!event.target.classList.contains(excludeFormClass)) {
+          event.currentTarget.classList.toggle(toggleClass);
+        }
       });
     }
   }

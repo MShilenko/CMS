@@ -22,6 +22,7 @@ $router->get('/', PageController::class . '@index');
 $router->get('/about', PageController::class . '@about');
 $router->get('/about', PageController::class . '@about');
 $router->get('/pages/*', PageController::class . '@current');
+$router->get('/unsubscribed/*', PageController::class . '@unsubscribed');
 
 $router->post('/', SubscribeController::class . '@add');
 
@@ -31,6 +32,8 @@ $router->post('/articles/*', CommentController::class . '@add');
 $router->get('/admin', AdminController::class . '@index');
 $router->get('/admin/users', AdminController::class . '@users');
 $router->post('/admin/users', AdminController::class . '@editUser');
+$router->get('/admin/users/add', AdminController::class . '@addUser');
+$router->post('/admin/users/add', AdminController::class . '@addUserPost');
 $router->get('/admin/articles', AdminController::class . '@allArticles');
 $router->post('/admin/articles', AdminController::class . '@toggleArticle');
 $router->get('/admin/articles/edit/(\d+)', AdminController::class . '@article');

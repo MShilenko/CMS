@@ -7,6 +7,7 @@ use \App\Core\ResponseAdapter;
 use \App\Core\View;
 use \App\Exceptions\AccessException;
 use \App\Exceptions\NotFoundException;
+use \App\Forms\AddUserForm;
 use \App\Forms\ArticleEditForm;
 use \App\Forms\ArticleSwitchPublicationForm;
 use \App\Forms\CommentEditForm;
@@ -17,6 +18,7 @@ use \App\Forms\PageSwitchPublicationForm;
 use \App\Forms\RolesEditFrom;
 use \App\Forms\SettingsForm;
 use \App\Forms\SubscribeDeleteForm;
+use \App\Forms\UserSwitchLockOutForm;
 use \App\Models\Article;
 use \App\Models\Comment;
 use \App\Models\Page;
@@ -25,6 +27,7 @@ use \App\Models\Subscribe;
 use \App\Models\User;
 use \App\Modules\ModelPagination;
 use \App\Modules\ModelRequestHelper;
+use \App\Observers\AddArticleObserver;
 
 class AdminController extends Controller
 {
@@ -41,9 +44,9 @@ class AdminController extends Controller
         $articles = Article::withTrashed()->orderBy('created_at', 'desc');
         $pagination = new ModelPagination($articles);
         if (isset($_GET['on_page'])) {
-            $paginationLimit = $pagination->getAdminLimit();            
+            $paginationLimit = $pagination->getAdminLimit();
         }
-        
+
         $modelWithPagination = $pagination->simplePaginate($paginationLimit ?? ModelPagination::DEFAULT_ADMIN);
         $form = new ArticleSwitchPublicationForm();
         $filterForm = new FilterForm();
@@ -90,9 +93,9 @@ class AdminController extends Controller
         $comments = Comment::orderBy('created_at', 'desc');
         $pagination = new ModelPagination($comments);
         if (isset($_GET['on_page'])) {
-            $paginationLimit = $pagination->getAdminLimit();            
+            $paginationLimit = $pagination->getAdminLimit();
         }
-        
+
         $modelWithPagination = $pagination->simplePaginate($paginationLimit ?? ModelPagination::DEFAULT_ADMIN);
         $form = new CommentSwitchPublicationForm();
         $filterForm = new FilterForm();
@@ -117,6 +120,13 @@ class AdminController extends Controller
         $form = new ArticleEditForm();
 
         return new View('admin.article.add', ['form' => $form]);
+    }
+
+    public function addUser()
+    {
+        $form = new AddUserForm();
+
+        return new View('admin.user.add', ['form' => $form]);
     }
 
     public function page(int $id)
@@ -149,6 +159,17 @@ class AdminController extends Controller
         if (isset($page->id)) {
             $messages['redirect'] = '/admin/pages/edit/' . $page->id;
         }
+
+        return (new ResponseAdapter($messages))->json();
+    }
+
+    public function addUserPost(array $request)
+    {
+        $messages = [];
+        $user = new User();
+        $form = new AddUserForm($request, $user::REG_VALIDATE);
+
+        $messages = (new ModelRequestHelper($request, $form, $user, 'adminAdd'))->run();
 
         return (new ResponseAdapter($messages))->json();
     }
@@ -190,6 +211,7 @@ class AdminController extends Controller
     {
         $messages = [];
         $article = new Article();
+        $article->attach(new AddArticleObserver());
         $request['imageName'] = $files['image']['name'];
         $request['image'] = $files['image']['tmp_name'];
         $form = new ArticleEditForm($request, $article::EDIT_VALIDATE);
@@ -281,13 +303,18 @@ class AdminController extends Controller
     public function users()
     {
         $form = new RolesEditFrom();
+        $switchForm = new UserSwitchLockOutForm();
 
-        return new View('admin.user.index', ['users' => User::all(), 'form' => $form]);
+        return new View('admin.user.index', ['users' => User::withTrashed()->get(), 'form' => $form, 'switchForm' => $switchForm]);
     }
 
     public function editUser(array $request)
     {
-        if ($user = User::find($request['userId'])) {
+        if ($user = User::withTrashed()->find($request['userId'])) {
+            if (isset($request['userSwitch'])) {
+                return (new ResponseAdapter([$user->toggle()]))->json();
+            }
+
             $messages = [];
             $form = new RolesEditFrom($request);
             $form->setModel($user);

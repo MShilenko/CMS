@@ -8,6 +8,7 @@ use \App\Exceptions\NotFoundException;
 use \App\Forms\SubscribeForm;
 use \App\Models\Article;
 use \App\Models\Page;
+use \App\Models\Subscribe;
 use \App\Modules\ModelPagination;
 
 class PageController extends Controller
@@ -32,6 +33,17 @@ class PageController extends Controller
             return new View('pages.current', ['page' => $page]);
         }
 
+        throw new NotFoundException(MSG_NOT_FOUND, 404);
+    }
+
+    public function unsubscribed(string $email)
+    {
+        $subscribe = new Subscribe();
+        if ($subscribe->emailExists($email)) {
+            $subscribe::where('email', $email)->delete();    
+            return new View('unsubscribed.index', ['email' => $email]);
+        }
+        
         throw new NotFoundException(MSG_NOT_FOUND, 404);
     }
 }

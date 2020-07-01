@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use \App\Observers;
 use \Exception;
 
-class Article extends \Illuminate\Database\Eloquent\Model
+class Article extends \Illuminate\Database\Eloquent\Model implements \SplSubject
 {
     use \App\Traits\ModelHelpers;
     use \App\Traits\StringPreparation;
@@ -19,6 +20,32 @@ class Article extends \Illuminate\Database\Eloquent\Model
     public const DEFAULT_IMAGE_ID = 1;
 
     protected $dates = ['deleted_at'];
+    private $observers;
+
+    // Observer pattern methods
+    public function __construct()
+    {
+        parent::__construct();
+        $this->observers = new \SplObjectStorage();
+    }
+
+    public function attach(\SplObserver $observer): void
+    {
+        $this->observers->attach($observer);
+    }
+
+    public function detach(\SplObserver $observer): void
+    {
+        $this->observers->detach($observer);
+    }
+
+    public function notify(): void
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
+    }
+    // /Observer pattern methods
 
     public function image()
     {
@@ -86,6 +113,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
         $this->user_id = $_SESSION['userId'];
 
         $this->save();
+        $this->notify();
 
         return ARTICLE_ADD_SUCCESS;
     }

@@ -20,6 +20,8 @@ abstract class Controller
             AdminController::class => [
                 'users' => [self::ADMIN],
                 'editUser' => [self::ADMIN],
+                'addUser' => [self::ADMIN],
+                'addUserPost' => [self::ADMIN],
                 'subscribes' => [self::ADMIN],
                 'deleteSubscribe' => [self::ADMIN],
                 'settings' => [self::ADMIN],

@@ -13,7 +13,7 @@ class RolesEditFrom extends BaseForm
 {
     public function assembly(): FormElement
     {
-        $userModel = User::find($this->params['userId']);
+        $userModel = User::withTrashed()->find($this->params['userId']);
         $formBlock = new Div('rolesEditBlock', 'row', ['class' => 'roles-edit-block row']);
 
         if (isset($_POST['rolesEdit']) && !$this->hasErrors()) {

@@ -110,6 +110,6 @@ class Route
      */
     public function preparePath(string $path): string
     {
-        return str_replace(['*', '/'], ['([a-z-]+)', '\/'], $path);
+        return str_replace(['*', '/'], ['([a-zA-Z0-9@.-]+)', '\/'], $path);
     }
 }

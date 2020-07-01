@@ -42,4 +42,19 @@ class Subscribe extends \Illuminate\Database\Eloquent\Model
     {
         return $this->where('email', '=', $email)->exists();
     }
+
+    /**
+     * Get an array of emails of all subscribers
+     * @return array $emails
+     */
+    public static function getEmails(): array 
+    {
+        $emails = [];
+
+        foreach (self::get('email') as $subscribe) {
+            $emails[] = $subscribe->email;
+        }
+
+        return $emails;
+    }
 }

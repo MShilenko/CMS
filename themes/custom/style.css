@@ -193,7 +193,8 @@ section#profile {
   clear: both
 }
 
-form[name="rolesEdit"] input[type="checkbox"] {
+form[name="rolesEdit"] input[type="checkbox"],
+form[name="addUser"] input[type="checkbox"] {
   margin: 0px 15px 0px 5px;
 }
 
@@ -224,14 +225,17 @@ form[name="rolesEdit"] input[type="checkbox"] {
 
 .admin-articles .trashed .articl-delete-block,
 form[name="commentsSwitchPublication"] label,
+form[name="userSwitchLockOut"] label,
 form[name="pageSwitchPublication"] label,
 form[name="articleSwitchPublication"] label[for="articleId"],
 form[name="subscribeDelete"] label[for="subscribeId"],
 form[name="articleSwitchPublication"] .article-restore,
+form[name="userSwitchLockOut"] .user-restore,
 form[name="pageSwitchPublication"] .page-restore,
 .comment-edit .comments-restore,
 .comment-edit.not-active .comments-delete,
 .trashed form[name="pageSwitchPublication"] .page-delete,
+.trashed form[name="userSwitchLockOut"] .user-delete,
 .trashed form[name="articleSwitchPublication"] .article-delete {
   display: none;
 }
@@ -242,10 +246,12 @@ form[name="pageSwitchPublication"] .page-restore,
 
 .comment-edit.not-active .comments-restore,
 .trashed form[name="articleSwitchPublication"] .article-restore,
+.trashed form[name="userSwitchLockOut"] .user-restore,
 .trashed form[name="pageSwitchPublication"] .page-restore {
   display: block;
 }
 
+.user-edit.trashed,
 .admin-articles .trashed,
 .admin-pages .trashed,
 .admin-comments .not-active {
