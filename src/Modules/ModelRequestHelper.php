@@ -3,8 +3,8 @@
 namespace App\Modules;
 
 use \App\Forms\BaseForm;
-use \Illuminate\Database\Eloquent\Model;
 use \Exception;
+use \Illuminate\Database\Eloquent\Model;
 
 class ModelRequestHelper
 {

@@ -12,7 +12,6 @@ use \App\Forms\ProfileForm;
 use \App\Forms\RegistrationForm;
 use \App\Models\User;
 use \App\Modules\ModelRequestHelper;
-use \Exception;
 
 class UserController extends Controller
 {
@@ -53,10 +52,10 @@ class UserController extends Controller
     {
         if (hasUserSession()) {
             $messages = [];
-        
+
             $request['imageName'] = $files['avatar']['name'];
             $request['avatar'] = $files['avatar']['tmp_name'];
-            
+
             $user = User::find($_SESSION['userId']);
             $form = new ProfileForm($request, $user::EDIT_VALIDATE);
 

@@ -9,17 +9,17 @@ use \App\Modules\SimpleFormBuilder\FormElement;
 use \App\Modules\SimpleFormBuilder\Input;
 use \App\Modules\SimpleFormBuilder\Submit;
 
-class AddUserForm extends BaseForm
+class AdminAddUserForm extends BaseForm
 {
     public function assembly(): FormElement
     {
-        $formBlock = new Div('addUserBlock', 'row', ['class' => 'addUser-block row']);
+        $formBlock = new Div('adminAddUserBlock', 'row', ['class' => 'adminAddUser-block row']);
 
-        if (isset($_POST['addUser']) && !$this->hasErrors()) {
+        if (isset($_POST['adminAddUser']) && !$this->hasErrors()) {
             $formBlock->add($this->setAlertBlock(ADD_USER_SUCCESS));           
         }
 
-        $form = new Form('addUser', "addUser", "POST", $this->action, ['id' => 'addUser', 'class' => 'user col-lg-12']);
+        $form = new Form('adminAddUser', "adminAddUser", "POST", $this->action, ['id' => 'adminAddUser', 'class' => 'user col-lg-12']);
 
         // checkbox
         $admin = new input('roles[admin]', 'checkbox', 'Администратор');
@@ -70,7 +70,7 @@ class AddUserForm extends BaseForm
 
         // Submit
         $row = new Div('Отправить', 'For email filed', ['class' => 'form-group']);
-        $row->add(new Submit('Отправить', 'addUser', ['class' => 'btn btn-primary btn-user btn-block col-lg-2 col-xs-12']));
+        $row->add(new Submit('Отправить', 'adminAddUser', ['class' => 'btn btn-primary btn-user btn-block col-lg-2 col-xs-12']));
         $form->add($row);
 
         $this->prepareFields([$name, $email, $password, $passwordConfirm]);

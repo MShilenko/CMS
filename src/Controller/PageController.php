@@ -40,10 +40,10 @@ class PageController extends Controller
     {
         $subscribe = new Subscribe();
         if ($subscribe->emailExists($email)) {
-            $subscribe::where('email', $email)->delete();    
+            $subscribe::where('email', $email)->delete();
             return new View('unsubscribed.index', ['email' => $email]);
         }
-        
+
         throw new NotFoundException(MSG_NOT_FOUND, 404);
     }
 }

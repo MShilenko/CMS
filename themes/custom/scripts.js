@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	let pageEdit = forms.pageEdit;
 	let addSettings = forms.addSettings;
 	let addFilter = forms.addFilter;
-	let addUser = forms.addUser;
+	let adminAddUser = forms.adminAddUser;
 
 	if (subscribeForm) app.formBuilderFetch(subscribeForm);
 	if (commentForm) app.formBuilderFetch(commentForm);
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	if (articleEdit) app.formBuilderFetch(articleEdit);
 	if (commentEdit) app.formBuilderFetch(commentEdit);
 	if (pageEdit) app.formBuilderFetch(pageEdit);
-	if (addUser) app.formBuilderFetch(addUser, '/admin/users');
+	if (adminAddUser) app.formBuilderFetch(adminAddUser, '/admin/users');
 	if (addSettings) app.formBuilderFetch(addSettings);
 	if (forms.rolesEdit) app.formsAddToLsitforBuilder(forms, 'editRoles');
 	if (forms.articleSwitchPublication) app.formsAddToLsitforBuilder(forms, 'articleSwitchPublication');

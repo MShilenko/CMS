@@ -14,6 +14,6 @@ trait ModelHelpers
      */
     public function fieldExists(string $fieldName, $fieldValue): bool
     {
-        return $this->where($fieldName, $fieldValue)->exists();
+        return $this->withTrashed()->where($fieldName, $fieldValue)->exists();
     }
 }

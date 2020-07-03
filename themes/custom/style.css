@@ -194,7 +194,7 @@ section#profile {
 }
 
 form[name="rolesEdit"] input[type="checkbox"],
-form[name="addUser"] input[type="checkbox"] {
+form[name="adminAddUser"] input[type="checkbox"] {
   margin: 0px 15px 0px 5px;
 }
 

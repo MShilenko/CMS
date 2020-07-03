@@ -5,8 +5,8 @@ namespace App\Controller;
 use \App\Core\Controller;
 use \App\Core\View;
 use \App\Exceptions\NotFoundException;
-use \App\Models\Article;
 use \App\Forms\CommentForm;
+use \App\Models\Article;
 
 class ArticleController extends Controller
 {

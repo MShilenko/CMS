@@ -14,8 +14,8 @@ class Route
 
     public function __construct(string $method, string $path, $callback)
     {
-        $this->method   = $method;
-        $this->path     = $path;
+        $this->method = $method;
+        $this->path = $path;
         $this->callback = $callback;
     }
 
@@ -80,7 +80,7 @@ class Route
     private function prepareMethod(string $callback)
     {
         $result = [];
-        $path   = explode('@', $callback);
+        $path = explode('@', $callback);
 
         $result = $this->isStaticMethod($path[0], $path[1]) ? $path : [new $path[0], $path[1]];
 

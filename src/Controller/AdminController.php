@@ -7,7 +7,7 @@ use \App\Core\ResponseAdapter;
 use \App\Core\View;
 use \App\Exceptions\AccessException;
 use \App\Exceptions\NotFoundException;
-use \App\Forms\AddUserForm;
+use \App\Forms\AdminAddUserForm;
 use \App\Forms\ArticleEditForm;
 use \App\Forms\ArticleSwitchPublicationForm;
 use \App\Forms\CommentEditForm;
@@ -33,10 +33,16 @@ class AdminController extends Controller
 {
     private const ACTIVE = 1;
     private const NOT_ACTIVE = 0;
-
+    
     public function index()
     {
-        return new View('admin.index', ['title' => 'Admin panel']);
+        return new View('admin.index', [
+            'title' => 'Админка',
+            'usersCount' => \App\Models\User::withTrashed()->count(),
+            'commentsCount' => \App\Models\Comment::count(),
+            'articlesCount' => \App\Models\Article::withTrashed()->count(),
+            'subscribesCount' => \App\Models\Subscribe::count(),
+        ]);
     }
 
     public function allArticles()
@@ -124,7 +130,7 @@ class AdminController extends Controller
 
     public function addUser()
     {
-        $form = new AddUserForm();
+        $form = new AdminAddUserForm();
 
         return new View('admin.user.add', ['form' => $form]);
     }
@@ -167,7 +173,7 @@ class AdminController extends Controller
     {
         $messages = [];
         $user = new User();
-        $form = new AddUserForm($request, $user::REG_VALIDATE);
+        $form = new AdminAddUserForm($request, $user::REG_VALIDATE);
 
         $messages = (new ModelRequestHelper($request, $form, $user, 'adminAdd'))->run();
 

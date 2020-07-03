@@ -20,11 +20,11 @@ class ValidationMiddleware extends Middleware
     {
         if ($this->next === null) {
             return $this->next = $next;
-        } 
+        }
 
-        return $this->next->linkWith($next);     
-    }   
-    
+        return $this->next->linkWith($next);
+    }
+
     /**
      * Check the field for compliance with the rule
      * @param  string $field
