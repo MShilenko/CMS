@@ -2,8 +2,8 @@
 
 namespace App\Modules;
 
-use \App\Exceptions\NotFoundException;
-use \App\Models\Setting;
+use App\Exceptions\NotFoundException;
+use App\Models\Setting;
 use \Illuminate\Database\Eloquent\Collection;
 
 class ModelPagination

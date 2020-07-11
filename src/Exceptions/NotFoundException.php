@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use \App\Interfaces\Renderable;
+use App\Interfaces\Renderable;
 
 class NotFoundException extends HttpException implements Renderable
 {

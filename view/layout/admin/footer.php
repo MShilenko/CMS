@@ -63,7 +63,7 @@
   <script src="<?= BACK_THEME_DIR ?>/js/demo/chart-area-demo.js"></script>
   <script src="<?= BACK_THEME_DIR ?>/js/demo/chart-pie-demo.js"></script>
 
-  <script src="<?= CORE_DIR ?>/Application.js"></script>
+  <script src="/assets/js/Application.js"></script>
   <script src="<?= THEMES_DIR ?>/custom/scripts.js"></script>
 
 </body>

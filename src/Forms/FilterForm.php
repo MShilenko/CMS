@@ -2,12 +2,12 @@
 
 namespace App\Forms;
 
-use \App\Modules\SimpleFormBuilder\Div;
-use \App\Modules\SimpleFormBuilder\Form;
-use \App\Modules\SimpleFormBuilder\FormElement;
-use \App\Modules\SimpleFormBuilder\Option;
-use \App\Modules\SimpleFormBuilder\Select;
-use \App\Modules\SimpleFormBuilder\Submit;
+use App\Modules\SimpleFormBuilder\Div;
+use App\Modules\SimpleFormBuilder\Form;
+use App\Modules\SimpleFormBuilder\FormElement;
+use App\Modules\SimpleFormBuilder\Option;
+use App\Modules\SimpleFormBuilder\Select;
+use App\Modules\SimpleFormBuilder\Submit;
 
 class FilterForm extends BaseForm
 {

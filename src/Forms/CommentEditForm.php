@@ -2,12 +2,11 @@
 
 namespace App\Forms;
 
-use \App\Modules\SimpleFormBuilder\Div;
-use \App\Modules\SimpleFormBuilder\Form;
-use \App\Modules\SimpleFormBuilder\FormElement;
-use \App\Modules\SimpleFormBuilder\Input;
-use \App\Modules\SimpleFormBuilder\Submit;
-use \App\Modules\SimpleFormBuilder\Textarea;
+use App\Modules\SimpleFormBuilder\Div;
+use App\Modules\SimpleFormBuilder\Form;
+use App\Modules\SimpleFormBuilder\FormElement;
+use App\Modules\SimpleFormBuilder\Submit;
+use App\Modules\SimpleFormBuilder\Textarea;
 
 class CommentEditForm extends BaseForm
 {

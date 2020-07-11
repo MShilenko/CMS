@@ -2,8 +2,8 @@
 
 namespace App\Modules\AccessControl;
 
-use \App\Exceptions\AccessException;
-use \App\Models\User;
+use App\Exceptions\AccessException;
+use App\Models\User;
 
 class Access
 {

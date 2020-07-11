@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use \App\Controller\AdminController;
+use App\Controller\AdminController;
 
 abstract class Controller
 {

@@ -2,8 +2,8 @@
 
 namespace App\Core;
 
-use \App\Interfaces\Renderable;
-use \App\Models\User;
+use App\Interfaces\Renderable;
+use App\Models\User;
 
 class View implements Renderable
 {

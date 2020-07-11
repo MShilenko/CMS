@@ -2,7 +2,7 @@
 
 namespace App\Middleware\Validation;
 
-use \App\Middleware\Middleware;
+use App\Middleware\Middleware;
 
 class ValidationMiddleware extends Middleware
 {

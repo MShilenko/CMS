@@ -4,15 +4,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 session_start();
 
-use \App\Controller\AdminController;
-use \App\Controller\ArticleController;
-use \App\Controller\AuthController;
-use \App\Controller\CommentController;
-use \App\Controller\PageController;
-use \App\Controller\SubscribeController;
-use \App\Controller\UserController;
-use \App\Core\Application;
-use \App\Core\Router;
+use App\Controller\AdminController;
+use App\Controller\ArticleController;
+use App\Controller\AuthController;
+use App\Controller\CommentController;
+use App\Controller\PageController;
+use App\Controller\SubscribeController;
+use App\Controller\UserController;
+use App\Core\Application;
+use App\Core\Router;
 
 require_once 'bootstrap.php';
 

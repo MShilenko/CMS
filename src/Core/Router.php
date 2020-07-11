@@ -2,8 +2,8 @@
 
 namespace App\Core;
 
-use \App\Exceptions\NotFoundException;
-use \App\Modules\AccessControl\Access;
+use App\Exceptions\NotFoundException;
+use App\Modules\AccessControl\Access;
 
 class Router
 {

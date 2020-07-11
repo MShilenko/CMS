@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use \App\Models\Subscribe;
+use App\Models\Subscribe;
 
 class AddArticleObserver implements \SplObserver
 {
@@ -24,9 +24,6 @@ class AddArticleObserver implements \SplObserver
         }
 
         $file = APP_DIR . '/subscribes_log.txt';
-        $log = file_get_contents($file);
-        $result .= $log;
-
-        file_put_contents($file, $result);
+        file_put_contents($file, $result, FILE_APPEND);
     }
 }

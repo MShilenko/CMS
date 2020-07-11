@@ -2,7 +2,7 @@
 
 namespace App\Modules;
 
-use \App\Interfaces\Renderable;
+use App\Interfaces\Renderable;
 
 class JsonResponse implements Renderable
 {

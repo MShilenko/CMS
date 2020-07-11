@@ -2,7 +2,7 @@
 
 namespace App\Modules;
 
-use \App\Forms\BaseForm;
+use App\Forms\BaseForm;
 use \Exception;
 use \Illuminate\Database\Eloquent\Model;
 

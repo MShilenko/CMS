@@ -2,32 +2,32 @@
 
 namespace App\Controller;
 
-use \App\Core\Controller;
-use \App\Core\ResponseAdapter;
-use \App\Core\View;
-use \App\Exceptions\AccessException;
-use \App\Exceptions\NotFoundException;
-use \App\Forms\AdminAddUserForm;
-use \App\Forms\ArticleEditForm;
-use \App\Forms\ArticleSwitchPublicationForm;
-use \App\Forms\CommentEditForm;
-use \App\Forms\CommentSwitchPublicationForm;
-use \App\Forms\FilterForm;
-use \App\Forms\PageEditForm;
-use \App\Forms\PageSwitchPublicationForm;
-use \App\Forms\RolesEditFrom;
-use \App\Forms\SettingsForm;
-use \App\Forms\SubscribeDeleteForm;
-use \App\Forms\UserSwitchLockOutForm;
-use \App\Models\Article;
-use \App\Models\Comment;
-use \App\Models\Page;
-use \App\Models\Setting;
-use \App\Models\Subscribe;
-use \App\Models\User;
-use \App\Modules\ModelPagination;
-use \App\Modules\ModelRequestHelper;
-use \App\Observers\AddArticleObserver;
+use App\Core\Controller;
+use App\Core\ResponseAdapter;
+use App\Core\View;
+use App\Exceptions\AccessException;
+use App\Exceptions\NotFoundException;
+use App\Forms\AdminAddUserForm;
+use App\Forms\ArticleEditForm;
+use App\Forms\ArticleSwitchPublicationForm;
+use App\Forms\CommentEditForm;
+use App\Forms\CommentSwitchPublicationForm;
+use App\Forms\FilterForm;
+use App\Forms\PageEditForm;
+use App\Forms\PageSwitchPublicationForm;
+use App\Forms\RolesEditFrom;
+use App\Forms\SettingsForm;
+use App\Forms\SubscribeDeleteForm;
+use App\Forms\UserSwitchLockOutForm;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Page;
+use App\Models\Setting;
+use App\Models\Subscribe;
+use App\Models\User;
+use App\Modules\ModelPagination;
+use App\Modules\ModelRequestHelper;
+use App\Observers\AddArticleObserver;
 
 class AdminController extends Controller
 {
@@ -72,7 +72,6 @@ class AdminController extends Controller
     public function editSettings(array $request)
     {
         $settings = Setting::find(Setting::GENERAL_SETTINGS);
-        $form = new SettingsForm();
         $form = new SettingsForm($request, $settings::VALIDATE);
 
         $messages = (new ModelRequestHelper($request, $form, $settings, 'edit'))->run();

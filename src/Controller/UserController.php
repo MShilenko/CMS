@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use \App\Core\Controller;
-use \App\Core\ResponseAdapter;
-use \App\Core\View;
-use \App\Exceptions\AccessException;
-use \App\Exceptions\NotFoundException;
-use \App\Forms\AuthorizationForm;
-use \App\Forms\ProfileForm;
-use \App\Forms\RegistrationForm;
-use \App\Models\User;
-use \App\Modules\ModelRequestHelper;
+use App\Core\Controller;
+use App\Core\ResponseAdapter;
+use App\Core\View;
+use App\Exceptions\AccessException;
+use App\Exceptions\NotFoundException;
+use App\Forms\AuthorizationForm;
+use App\Forms\ProfileForm;
+use App\Forms\RegistrationForm;
+use App\Models\User;
+use App\Modules\ModelRequestHelper;
 
 class UserController extends Controller
 {

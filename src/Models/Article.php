@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \App\Observers;
+use App\Observers;
 use \Exception;
 
 class Article extends \Illuminate\Database\Eloquent\Model implements \SplSubject

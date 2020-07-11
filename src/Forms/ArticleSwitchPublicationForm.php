@@ -2,12 +2,12 @@
 
 namespace App\Forms;
 
-use \App\Models\Article;
-use \App\Modules\SimpleFormBuilder\Div;
-use \App\Modules\SimpleFormBuilder\Form;
-use \App\Modules\SimpleFormBuilder\FormElement;
-use \App\Modules\SimpleFormBuilder\Input;
-use \App\Modules\SimpleFormBuilder\Submit;
+use App\Models\Article;
+use App\Modules\SimpleFormBuilder\Div;
+use App\Modules\SimpleFormBuilder\Form;
+use App\Modules\SimpleFormBuilder\FormElement;
+use App\Modules\SimpleFormBuilder\Input;
+use App\Modules\SimpleFormBuilder\Submit;
 
 class ArticleSwitchPublicationForm extends BaseForm
 {

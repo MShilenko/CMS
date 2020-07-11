@@ -3,7 +3,7 @@
 namespace App\Core;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use \App\Interfaces\Renderable;
+use App\Interfaces\Renderable;
 use \Exception;
 
 class Application

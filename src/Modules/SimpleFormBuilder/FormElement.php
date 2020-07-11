@@ -2,7 +2,7 @@
 
 namespace App\Modules\SimpleFormBuilder;
 
-use \App\Interfaces\Renderable;
+use App\Interfaces\Renderable;
 
 abstract class FormElement implements Renderable
 {

@@ -2,8 +2,8 @@
 
 namespace App\Modules\Validation;
 
-use \App\Interfaces\Validated;
-use \App\Middleware\Validation\ValidationMiddleware;
+use App\Interfaces\Validated;
+use App\Middleware\Validation\ValidationMiddleware;
 use \Exception;
 
 class RequestValidation implements Validated

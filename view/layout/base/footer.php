@@ -49,7 +49,7 @@
 
   <!-- Custom scripts for this template -->
   <script src="<?= FRONT_THEME_DIR ?>/js/clean-blog.min.js"></script>
-  <script src="<?= CORE_DIR ?>/Application.js"></script>
+  <script src="/assets/js/Application.js"></script>
   <script src="<?= THEMES_DIR ?>/custom/scripts.js"></script>
 
 </body>

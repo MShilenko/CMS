@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use \App\Core\Controller;
-use \App\Core\View;
-use \App\Forms\AuthorizationForm;
-use \App\Forms\RegistrationForm;
+use App\Core\Controller;
+use App\Core\View;
+use App\Forms\AuthorizationForm;
+use App\Forms\RegistrationForm;
 
 class AuthController extends Controller
 {

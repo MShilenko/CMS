@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use \App\Core\Controller;
-use \App\Core\View;
-use \App\Exceptions\NotFoundException;
-use \App\Forms\SubscribeForm;
-use \App\Models\Article;
-use \App\Models\Page;
-use \App\Models\Subscribe;
-use \App\Modules\ModelPagination;
+use App\Core\Controller;
+use App\Core\View;
+use App\Exceptions\NotFoundException;
+use App\Forms\SubscribeForm;
+use App\Models\Article;
+use App\Models\Page;
+use App\Models\Subscribe;
+use App\Modules\ModelPagination;
 
 class PageController extends Controller
 {
