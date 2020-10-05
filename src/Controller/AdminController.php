@@ -155,7 +155,6 @@ class AdminController extends Controller
 
     public function addPagePost(array $request)
     {
-        $messages = [];
         $page = new Page();
         $form = new PageEditForm($request, $page::EDIT_VALIDATE);
 
@@ -170,7 +169,6 @@ class AdminController extends Controller
 
     public function addUserPost(array $request)
     {
-        $messages = [];
         $user = new User();
         $form = new AdminAddUserForm($request, $user::REG_VALIDATE);
 
@@ -198,7 +196,6 @@ class AdminController extends Controller
     public function editArticle(int $id, array $request, array $files)
     {
         if ($article = Article::withTrashed()->find($id)) {
-            $messages = [];
             $request['imageName'] = $files['image']['name'];
             $request['image'] = $files['image']['tmp_name'];
             $form = new ArticleEditForm($request, $article::EDIT_VALIDATE);
@@ -214,7 +211,6 @@ class AdminController extends Controller
 
     public function addArticlePost(array $request, array $files)
     {
-        $messages = [];
         $article = new Article();
         $article->attach(new AddArticleObserver());
         $request['imageName'] = $files['image']['name'];
@@ -234,7 +230,6 @@ class AdminController extends Controller
     public function editPage(int $id, array $request)
     {
         if ($page = Page::withTrashed()->find($id)) {
-            $messages = [];
             $form = new PageEditForm($request, $page::EDIT_VALIDATE);
             $form->setModel($page);
 
@@ -253,7 +248,6 @@ class AdminController extends Controller
                 throw new AccessException(MSG_FORBIDDEN, 403);
             }
 
-            $messages = [];
             $form = new CommentEditForm($request, $comment::VALIDATE);
             $form->setModel($comment);
 
@@ -320,7 +314,6 @@ class AdminController extends Controller
                 return (new ResponseAdapter([$user->toggle()]))->json();
             }
 
-            $messages = [];
             $form = new RolesEditFrom($request);
             $form->setModel($user);
 

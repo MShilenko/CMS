@@ -24,7 +24,7 @@ class Application {
 
 	    if (result.success && (redirectURI != '' || result.redirect != undefined)) {
 	    	setTimeout(function(){
-			  window.location.href = result.redirect ?? redirectURI;
+			  window.location.href = result.redirect != '' && result.redirect != undefined ? result.redirect : redirectURI;
 			}, 2000);
 	    }
 	  };
